@@ -3,6 +3,10 @@ import React, { useState } from 'react';
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
+  
+
+
+
   const [pageIndex, setPageIndex] = useState(0);
   function switchPage(){
     switch(pageIndex){
