@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { appContext, AppContextInterface } from './classes-interfaces/app-context';
+import ProblemReport from './components/page/problem-report';
 import { Theme } from './SafariSolaceStyleTools/colorstyle';
 import { themeContext, ThemeContextInterface } from './SafariSolaceStyleTools/themecontext';
 
@@ -37,12 +38,12 @@ export default function App() {
 
 
 
-  const [pageIndex, setPageIndex] = useState(0);
+  const [pageIndex, setPageIndex] = useState(2);
   function switchPage(){
     switch(pageIndex){
       case                      0:{return (<><Text>Default page</Text></>)}
       case                      1:{return (<><Text>Page 2</Text></>)}
-      case /*Josh testing*/     2:{return (<><Text>josh</Text></>)}
+      case /*Josh testing*/     2:{return (<><ProblemReport/></>)} 
       case /*Brandon Testing*/  3:{return (<><Text>Brandon</Text></>)}
       case /*Kris Testing*/     4:{return (<><Text>Kris</Text></>)}
       case /*John Testing*/     5:{return (<><Text>John</Text></>)}
@@ -53,15 +54,13 @@ export default function App() {
 
   
   return (
-    <appContext.Provider value = {initContext}>
-      <themeContext.Provider value = { themeContextObject }>
-
-        <View style={styles.container}>
+    <View style={styles.container}>
+      <appContext.Provider value = {initContext}>
+        <themeContext.Provider value = { themeContextObject }>
           {switchPage()}
-        </View>
-  
-      </themeContext.Provider>
-    </appContext.Provider>
+        </themeContext.Provider>
+      </appContext.Provider>
+    </View>
 
   );
 }
@@ -69,7 +68,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#999',
     alignItems: 'center',
     justifyContent: 'center',
   },
