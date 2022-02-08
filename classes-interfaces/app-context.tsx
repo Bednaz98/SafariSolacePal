@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import React, { createContext, useContext } from "react";
 
 
 
@@ -10,7 +10,8 @@ export interface AppContextInterface{
     setServerOfferings:React.Dispatch<React.SetStateAction<Offering[]>>
     userOfferings:Offering[]
     setUserOfferings:React.Dispatch<React.SetStateAction<Offering[]>>
-
+    availableActivities:Activity[]
+    setAvailableActivities:React.Dispatch<React.SetStateAction<Activity[]>>
 }
 
 
@@ -28,7 +29,9 @@ export const initContext: AppContextInterface = {
     serverOfferings: [],
     setServerOfferings: () => { },
     userOfferings: [],
-    setUserOfferings: ()=>{}
+    setUserOfferings: ()=>{},
+    availableActivities: [],
+    setAvailableActivities: ()=>{}
 }
 
 export const appContext = createContext(initContext);
