@@ -7,6 +7,7 @@ import { Theme } from './SafariSolaceStyleTools/colorstyle';
 import { themeContext, ThemeContextInterface } from './SafariSolaceStyleTools/themecontext';
 import ReservationLogin from './components/page/login-page'
 import ReservationHomePage from './components/page/reservation-homepage';
+import ActivityView from './components/page/activity-view';
 
 
 export default function App() {
@@ -44,7 +45,7 @@ export default function App() {
 
 
 
-  const [pageIndex, setPageIndex] = useState(2);
+  const [pageIndex, setPageIndex] = useState(3);
   function switchPage(){
     switch(pageIndex){
       case                              0:{return (<ReservationLogin/>)}
@@ -53,7 +54,7 @@ export default function App() {
       //case /*Requested Room Service*/   3:{return ( /*View Offered Services*/ )}
       //case /*All Events*/               4:{return ( /*View All Events*/ )}
       case /*Problem Report*/           2:{return (<ProblemReport/>)} 
-      case /*Brandon Testing*/  3:{return (<><Text>Brandon</Text></>)}
+      case /*Brandon Testing*/  3:{return (<ActivityView/>)}
       case /*Kris Testing*/     4:{return (<><Text>Kris</Text></>)}
       case /*John Testing*/     5:{return (<><Text>John</Text></>)}
       case /*Josh testing*/     6:{return (<><Text>Josh</Text></>)}
