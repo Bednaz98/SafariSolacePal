@@ -5,6 +5,7 @@ import { appContext, AppContextInterface } from './classes-interfaces/app-contex
 import ProblemReport from './components/page/problem-report';
 import { Theme } from './SafariSolaceStyleTools/colorstyle';
 import { themeContext, ThemeContextInterface } from './SafariSolaceStyleTools/themecontext';
+import ReservationLogin from './components/page/login-page'
 
 export default function App() {
   const [theme, setTheme] = useState(Theme.default);
@@ -43,7 +44,7 @@ export default function App() {
     switch(pageIndex){
       case                      0:{return (<><Text>Default page</Text></>)}
       case                      1:{return (<><Text>Page 2</Text></>)}
-      case /*Josh testing*/     2:{return (<><ProblemReport/></>)} 
+      case /*Josh testing*/     2:{return (<><ReservationLogin/>  </>)} 
       case /*Brandon Testing*/  3:{return (<><Text>Brandon</Text></>)}
       case /*Kris Testing*/     4:{return (<><Text>Kris</Text></>)}
       case /*John Testing*/     5:{return (<><Text>John</Text></>)}
@@ -51,8 +52,6 @@ export default function App() {
     }
   }
 
-
-  
   return (
     <View style={styles.container}>
       <appContext.Provider value = {initContext}>
@@ -61,7 +60,6 @@ export default function App() {
         </themeContext.Provider>
       </appContext.Provider>
     </View>
-
   );
 }
 
