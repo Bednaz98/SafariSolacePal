@@ -52,6 +52,7 @@ export default function App() {
 
 
   function SwitchPage(){
+
     switch(pageIndex){
       default :{return < ShowNavBar/> }
       case                              0:{return (<View><ReservationLogin/></View>)}
@@ -60,7 +61,7 @@ export default function App() {
       //case /*Requested Room Service*/   3:{return (<View></View> /*View Offered Services*/ )}
       case /*All Events*/               4:{  console.log("Events");return ( <View><ActivityView/></View> )}
       case /*Problem Report*/           2:{return (<ProblemReport/>)} 
-      case /*Brandon Testing*/  3:{return (<><Text>Brandon</Text></>)}
+      case /*Brandon Testing*/  3:{return (<ActivityView/>)}
       case /*Kris Testing*/     4:{return (<><Text>Kris</Text></>)}
       case /*John Testing*/     5:{return (<><Text>John</Text></>)}
       case /*Josh testing*/     6:{return (<><Text>Josh</Text></>)}
