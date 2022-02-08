@@ -1,9 +1,39 @@
 
 import React, { useState } from 'react';
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import { appContext, AppContextInterface } from './classes-interfaces/app-context';
+import { Theme } from './SafariSolaceStyleTools/colorstyle';
+import { themeContext, ThemeContextInterface } from './SafariSolaceStyleTools/themecontext';
 
 export default function App() {
-  
+  const [theme, setTheme] = useState(Theme.default);
+
+
+  // dummy values
+  const dummyReservation:Reservation={
+    id: '',
+    checkIn: 0,
+    checkOut: 0,
+    owner: '',
+    room: ''
+  }
+  const dummyOffering1:Offering[] =[]
+  const dummyOffering2:Offering[] =[]
+
+  const [reservation, setReservation] = useState(dummyReservation);
+  const [serverOfferingList, setServerOfferingList] = useState(dummyOffering1);
+  const [userServerOffering, setUserServerOffering] = useState(dummyOffering2);
+
+
+  const initContext:AppContextInterface = {
+    reservationData: reservation,
+    setReservationData: setReservation,
+    serverOfferings: serverOfferingList,
+    setServerOfferings: setServerOfferingList,
+    userOfferings: userServerOffering,
+    setUserOfferings: setUserServerOffering
+  }
+  const themeContextObject:ThemeContextInterface = {theme:theme,setTheme:setTheme}
 
 
 
@@ -23,9 +53,16 @@ export default function App() {
 
   
   return (
-    <View style={styles.container}>
-      {switchPage()}
-    </View>
+    <appContext.Provider value = {initContext}>
+      <themeContext.Provider value = { themeContextObject }>
+
+        <View style={styles.container}>
+          {switchPage()}
+        </View>
+  
+      </themeContext.Provider>
+    </appContext.Provider>
+
   );
 }
 
