@@ -8,16 +8,24 @@ import { useState } from "react";
 export default function ReservationLogin(){
     const [reservation, setReservation] = useState('');
     const [firstTry, setFirstTry] = useState(false);
+    const [showError, setShowError] = useState(false);
 
     /**this should be used to check if the input reservation is valid*/
     function reservationCheck(){
-        if(!firstTry){setFirstTry(true)}
-        return Boolean(reservation.length >0)
+        if(!firstTry){setFirstTry(true)};
+        return Boolean(reservation.length >0);
     }
     function tryLoginHTTP(){
         if(!firstTry){setFirstTry(true)}
-        console.log("try login pressed")
-
+        try {
+            console.log("try login pressed");
+            //HTTP request here ....
+            setShowError(false);
+            //Set context State Here ...
+            //switch page ...
+        } catch (error) {
+            setShowError(true);
+        }
     }
 
     function TryLoginButton(){
@@ -26,7 +34,7 @@ export default function ReservationLogin(){
 
     function InvalidWarning(){
         if(!firstTry){ return <> <TryLoginButton/></>}
-        else if(reservationCheck()){ return <><TryLoginButton/></>}
+        else if(!showError && reservationCheck()){ return <><TryLoginButton/></>}
         else{return <><BasicText text={"You may have entered an invalid URL, if not please contact a manager"}/> </>}
     }
     return(
