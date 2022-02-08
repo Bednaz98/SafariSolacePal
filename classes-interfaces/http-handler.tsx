@@ -4,7 +4,7 @@ import LocalHandlerInterface from "./local-h-interface";
 import LocalHandler from "./localhandler";
 import axios from "axios"
 
-interface httphandlerInterface{
+export interface httphandlerInterface{
 
     /** Get all information for the user's reservation */
     getReservations(id: string): Promise<Reservation>
@@ -62,7 +62,7 @@ export default class httpHandler implements httphandlerInterface{
     async getActivities(id?: string): Promise<Activity | Activity[]> {
         let response: any
         if (id) {response = await axios.get(`${this.getURL()}/activities/:${id}`)} 
-        else {response = await axios.get(`${this.getURL()}/activities`); }
+        else {response = await axios.get(`${this.getURL()}/activities`)}
   
         const data = response.data
         return data;
