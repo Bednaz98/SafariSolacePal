@@ -5,11 +5,11 @@ import LocalHandler from "./localhandler";
 import axios from "axios"
 
 interface httphandlerInterface{
-    getReservations(id: number): Promise<Reservation>
-    // getActivities() : Promise<Activity>
-    // getRoomOfferings(): Promise<Offering>
-    // getRoomServiceRequests(): Promise<ServiceRequest>
-    // postServiceRequest(): Promise<boolean>
+    getReservations(id: string): Promise<Reservation>
+    getActivities(id?: string) : Promise<Activity[]>
+    getRoomOfferings(): Promise<Offering>
+    getRoomServiceRequests(): Promise<ServiceRequest[] | ServiceRequest>
+    postServiceRequest(request: ServiceRequest): Promise<boolean>
     // syncApp() : Promise<boolean>
 }
 
@@ -25,47 +25,50 @@ export default class httpHandler implements httphandlerInterface{
         this.devMode=dev;
     }
 
-    /**this function returns the URL to work with, if devMod is set to false, it will return the production URL, if true, it will return 'http//localhost:[port]'*/
+    /**this function returns the URL to work with, if devMod is set to false, 
+     * it will return the production URL, if true, it will return 'http//localhost:[port]'*/
     private getURL(){
         if(this.devMode){ return `https://c27c0348-eb0c-4ac0-afe2-101bc195d6a5.mock.pstmn.io`} //postman mock
         else {return  this.useURL}
     }
 
-    async getReservations(id: number){
+    async getReservations(id: string){
         const response = await axios.get(`${this.getURL()}/reservations/:${id}`);
         const data: Reservation = response.data;  
         this.localHander.setLocalReservation(data);                  
         return data;
     }
 
-    // async getActivities(){return  }
-    // async getRoomOfferings(): Promise<Offering>
-    // async getRoomServiceRequests(): Promise<ServiceRequest>
-    // async postServiceRequest(): Promise<boolean>
-    // async syncApp() : Promise<boolean>
+    async getActivities(id?: string): Promise<Activity[]> {
+        let response: any
+        if (id) {response = await axios.get(`${this.getURL()}/activities/:${id}`)} 
+        else {response = await axios.get(`${this.getURL()}/activities`); }
+  
+        const data: Activity[] = response.data
+        return data;
+    }
 
+    async getRoomOfferings(): Promise<Offering> {
+        const response = await axios.get(`${this.getURL()}/offerings`) 
+        return response.data
+    }
 
+    async getRoomServiceRequests(id? : string): Promise<ServiceRequest[] | ServiceRequest> {
+        let response: any
+        if (id) {response = await axios.get(`${this.getURL()}/servicerequests/:${id}`)} 
+        else {response = await axios.get(`${this.getURL()}/servicerequests`); }
+  
+        const data: ServiceRequest | ServiceRequest[] = response.data
+        return data;
+    }
 
-    // async syncApp() {
-    //     const usersToSave: LocalEmployee[] = this.context.employeeList.filter(e => e.status === Status.add);
-    //     usersToSave.forEach(async e => {
-    //         console.log(e.serverData);
-    //         console.log("Making post call for:", e.serverData)
-    //         const tempEmployee = {
-    //             isManager: e.serverData.isManager,
-    //             fname: e.serverData.fname,
-    //             lname: e.serverData.lname,
-    //             username: e.serverData.username,
-    //             password: e.serverData.password
-    //         };
-    //         const response = await axios.post(`${this.getURL()}/employees`, tempEmployee);
-    //         const currentEmployee: Employee = response.data; 
-    //         return(currentEmployee);
-    //     });
-    //     const serverEmployees = await this.getServerAllEmployees();
-    //     this.localHander.syncEmployees(serverEmployees);
-    //     this.context.setSync(true);
-    // }
+    async postServiceRequest(request: ServiceRequest): Promise<boolean> {
+        try {
+            await axios.post(`${this.getURL()}/servicerequests`, request)
+            return true
+        }
+        catch {return false}   
+    }
 
 
 } 

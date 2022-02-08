@@ -1,0 +1,9 @@
+{
+    "reservation": {
+        "id":"derp",
+        "checkIn": 101,
+        "checkOut": 101,
+        "owner": "dude",
+        "room" : "room101"
+    }
+}
