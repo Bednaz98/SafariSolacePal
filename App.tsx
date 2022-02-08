@@ -6,6 +6,7 @@ import ProblemReport from './components/page/problem-report';
 import { Theme } from './SafariSolaceStyleTools/colorstyle';
 import { themeContext, ThemeContextInterface } from './SafariSolaceStyleTools/themecontext';
 import ReservationLogin from './components/page/login-page'
+import ReservationHomePage from './components/page/reservation-homepage';
 
 
 export default function App() {
@@ -46,12 +47,16 @@ export default function App() {
   const [pageIndex, setPageIndex] = useState(2);
   function switchPage(){
     switch(pageIndex){
-      case                      0:{return (<><Text>Default page</Text></>)}
-      case                      1:{return (<><Text>Page 2</Text></>)}
-      case /*Josh testing*/     2:{return (<><ReservationLogin/>  </>)} 
+      case                              0:{return (<ReservationLogin/>)}
+      case /*Home page*/                1:{return ( <ReservationHomePage/>)}
+      //case /*All Room Service*/         2:{return ( /*View Requested Services*/ )}
+      //case /*Requested Room Service*/   3:{return ( /*View Offered Services*/ )}
+      //case /*All Events*/               4:{return ( /*View All Events*/ )}
+      case /*Problem Report*/           2:{return (<ProblemReport/>)} 
       case /*Brandon Testing*/  3:{return (<><Text>Brandon</Text></>)}
       case /*Kris Testing*/     4:{return (<><Text>Kris</Text></>)}
       case /*John Testing*/     5:{return (<><Text>John</Text></>)}
+      case /*Josh testing*/     6:{return (<><Text>Josh</Text></>)}
 
     }
   }
