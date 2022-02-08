@@ -1,4 +1,8 @@
+
+import React from "react"
 import { ScrollView, View } from "react-native"
+import BasicText from "../../SafariSolaceStyleTools/basictext"
+
 import ActivityItem from "../children/activity-item"
 
 export default function ActivityView(){
@@ -13,6 +17,8 @@ export default function ActivityView(){
     const activityItems = activities.map(a => <ActivityItem key={a.id} {...a}/>)
 
     return(<View>
+        <BasicText text={'Hello'}/>
+
         <ScrollView>
                 {activityItems}
         </ScrollView>

@@ -12,7 +12,7 @@ export default function ReservationHomePage(){
     let reservationID:string = 'Testing'//context?.reservationData?.room ?? "EXAMPLE ROOM"
     if(context.reservationData?.id.length >0){ reservationID = context.reservationData.id}
     else{reservationID = "EXAMPLEID"}
-    const CheckInTime = `${(new Date(context.reservationData.checkIn)).toDateString()} At: ${(new Date(context.reservationData.checkIn)).toLocaleTimeString() }`
+    const CheckInTime = `${ (new Date(context.reservationData.checkIn)) .toDateString()} At: ${(new Date(context.reservationData.checkIn)).toLocaleTimeString() }`
     const CheckOutTime = `${(new Date(context.reservationData.checkOut)).toDateString()} At: ${(new Date(context.reservationData.checkOut)).toLocaleTimeString() }`
 
     function GetRoomName(){

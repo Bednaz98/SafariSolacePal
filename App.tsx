@@ -7,11 +7,13 @@ import { Theme } from './SafariSolaceStyleTools/colorstyle';
 import { themeContext, ThemeContextInterface } from './SafariSolaceStyleTools/themecontext';
 import ReservationLogin from './components/page/login-page'
 import ReservationHomePage from './components/page/reservation-homepage';
+import NavBar from './components/children/nav-bar';
 import ActivityView from './components/page/activity-view';
 
 
 export default function App() {
   const [theme, setTheme] = useState(Theme.default);
+  const [pageIndex, setPageIndex] = useState(-1);
 
 
   // dummy values
@@ -43,16 +45,21 @@ export default function App() {
   }
   const themeContextObject:ThemeContextInterface = {theme:theme,setTheme:setTheme}
 
+  function ShowNavBar(){
+    if(! (reservation.id.length>0) ) return <NavBar navFunc={setPageIndex}/>
+    else return <></>
+  }
 
 
-  const [pageIndex, setPageIndex] = useState(3);
-  function switchPage(){
+  function SwitchPage(){
+
     switch(pageIndex){
-      case                              0:{return (<ReservationLogin/>)}
-      case /*Home page*/                1:{return ( <ReservationHomePage/>)}
-      //case /*All Room Service*/         2:{return ( /*View Requested Services*/ )}
-      //case /*Requested Room Service*/   3:{return ( /*View Offered Services*/ )}
-      //case /*All Events*/               4:{return ( /*View All Events*/ )}
+      default :{return < ShowNavBar/> }
+      case                              0:{return (<View><ReservationLogin/></View>)}
+      case /*Home page*/                1:{return (<View><ReservationHomePage/></View> )}
+     // case /*All Room Service*/         2:{ return (<View></View> /*View Requested Services*/) }
+      //case /*Requested Room Service*/   3:{return (<View></View> /*View Offered Services*/ )}
+      case /*All Events*/               4:{  console.log("Events");return ( <View><ActivityView/></View> )}
       case /*Problem Report*/           2:{return (<ProblemReport/>)} 
       case /*Brandon Testing*/  3:{return (<ActivityView/>)}
       case /*Kris Testing*/     4:{return (<><Text>Kris</Text></>)}
@@ -66,12 +73,13 @@ export default function App() {
     <View style={styles.container}>
       <appContext.Provider value = {initContext}>
         <themeContext.Provider value = { themeContextObject }>
-          {switchPage()}
+          <SwitchPage/>
         </themeContext.Provider>
       </appContext.Provider>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
