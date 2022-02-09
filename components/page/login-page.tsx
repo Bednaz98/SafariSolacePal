@@ -29,7 +29,7 @@ export default function ReservationLogin(props){
             setShowError(false);
             console.log("login data: ",returnReservation)
             await HTTP.syncApp(reservation)
-            await props.setPageIndex(-1)
+            await props.setPageIndex(-1) //go to loading screen
             //Set context State Here ...
             //switch page ...
         } catch (error) {
