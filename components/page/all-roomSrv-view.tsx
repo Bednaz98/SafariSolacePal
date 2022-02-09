@@ -47,7 +47,7 @@ export function RoomServiceOfferings() {
         renderItem={({ item }) => {
           return (
             <View>
-              <BasicText text={item.desc} />
+              <BasicText text={item.desc ?? "example"} />
               <BasicButton onPress={addOffer(item)} title={"Add"} />
             </View>
           );
