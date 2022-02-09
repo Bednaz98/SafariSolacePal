@@ -31,14 +31,19 @@ export default function App() {
   }
 
   const dummyOffering1:Offering[] =[]
-  const dummyOffering2:ServiceRequest={
-    id: '',
-    room: '',
-    created: 0,
-    status: 'Ordered',
-    requestedOffering: []
-  }
+//   const dummyOffering2:ServiceRequest={
+//     id: '',
+//     room: '',
+//     created: 0,
+//     status: 'Ordered',
+//     requestedOffering: []
+//   }
 
+const dummyOffering2 : Offering[]=
+[{
+    desc: "pizza in bed",
+    cost: 12
+}]
 
   const [reservation, setReservation] = useState(dummyReservation);
   const [serverOfferingList, setServerOfferingList] = useState(dummyOffering1);

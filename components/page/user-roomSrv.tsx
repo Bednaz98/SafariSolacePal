@@ -17,10 +17,10 @@ export function UserRoomServiceOrder() {
     const [orders, setOrders] = useState(userOfferings);
     //console.log(localHandle.getUserOfferings())
 
-    useEffect(() => {
-    setOrders(httpHandle.);
-    //setOrders(testArr());
-}, []);
+//     useEffect(() => {
+//     setOrders(httpHandle.);
+//     //setOrders(testArr());
+// }, []);
 
   function testArr(){
     let arr1 = [];
@@ -35,7 +35,7 @@ export function UserRoomServiceOrder() {
   }
 
   function remove(props) {
-    httpHandle.cancelServiceRequest(props);
+    // httpHandle.cancelServiceRequest(props);
   }
 
   return (
