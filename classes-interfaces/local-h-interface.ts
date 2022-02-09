@@ -3,6 +3,7 @@ import  { Offering,ServiceRequest } from "./room-service";
 
 
 
+
 export default interface LocalHandlerInterface{
         /**used to get the reservation data saved locally*/
         getLocalReservation():Reservation
@@ -16,4 +17,5 @@ export default interface LocalHandlerInterface{
         getUserOfferings(ServiceRequest: ServiceRequest):Offering[]
         /**used to set the user offering locally*/
         setUserOfferings(ServerOfferingData:ServiceRequest):boolean
+
 }

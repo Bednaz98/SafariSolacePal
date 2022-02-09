@@ -29,6 +29,7 @@ export default function App() {
     owner: '',
     room: ''
   }
+
   const dummyOffering1:Offering[] =[]
   const dummyOffering2:ServiceRequest={
     id: '',
@@ -37,6 +38,7 @@ export default function App() {
     status: 'Ordered',
     requestedOffering: []
   }
+
 
   const [reservation, setReservation] = useState(dummyReservation);
   const [serverOfferingList, setServerOfferingList] = useState(dummyOffering1);
