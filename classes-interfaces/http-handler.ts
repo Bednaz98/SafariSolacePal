@@ -122,10 +122,11 @@ export default class httpHandler implements httphandlerInterface{
 
     async syncApp(id:string){
         //get-n-set
-        await this.localHandler.setLocalReservation(await this.getReservations(id))
+        this.localHandler.setLocalReservation(await this.getReservations(id))
         //this.localHandler.setLocalOfferings(await this.getRoomOfferings())
         //this.localHandler.setUserOfferings(await this.getRoomOfferings(id))
         //this.context.setPage(1)
+        console.log('wait')
         return (true)
     }
 } 
