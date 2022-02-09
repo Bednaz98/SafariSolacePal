@@ -1,0 +1,55 @@
+//shows all the orders for a room
+import React, { useState, useEffect } from "react";
+import { FlatList } from "react-native";
+import { View } from "react-native";
+import httpHandler from "../../classes-interfaces/http-handler";
+import LocalHandler from "../../classes-interfaces/localhandler";
+import BasicButton from "../../SafariSolaceStyleTools/basicbutton";
+import BasicText from "../../SafariSolaceStyleTools/basictext";
+import v4 from "uuid/v4";
+
+export function RoomServiceOfferings() {
+  const httpHandle = new httpHandler();
+
+  const arr: Offering[] = []; 
+  const [orders, setOrders] = useState(arr);
+
+  useEffect(() => {
+    /* setOrders(localhandle.getLocalOfferings());  */
+    setOrders(testArr());
+  }, []);
+
+  function testArr(){
+    let arr1 = [];
+    for(let i = 0; i < 4; i++){
+      let obj : Offering = {
+        desc: "Test Item",
+        cost: 0
+      } 
+      arr1.push(obj);
+    }
+    return arr1;
+  }
+
+  function addOffer(props) {
+    httpHandle.postServiceRequest(props);
+  }
+
+  return (
+    <View>
+      <BasicText text={"All Room Service Offerings"} />
+      <FlatList
+        data={orders}
+        keyExtractor={(item) => v4()}
+        renderItem={({ item }) => {
+          return (
+            <View>
+              <BasicText text={item.desc} />
+              <BasicButton onPress={addOffer(item)} title={"Add"} />
+            </View>
+          );
+        }}
+      />
+    </View>
+  );
+}
