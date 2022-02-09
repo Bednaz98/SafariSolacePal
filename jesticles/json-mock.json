@@ -1,5 +1,5 @@
 {
-    "reservation": {
+    "Reservation": {
         "id":"derp",
         "checkIn": 101,
         "checkOut": 101,

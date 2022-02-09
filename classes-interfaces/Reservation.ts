@@ -1,4 +1,4 @@
-interface Reservation{
+export default interface Reservation{
     id:string
     checkIn: number
     checkOut: number

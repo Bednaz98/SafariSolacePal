@@ -1,4 +1,4 @@
-interface Activity{
+export interface Activity{
     id: string
     title: string
     desc: string

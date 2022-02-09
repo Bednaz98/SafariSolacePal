@@ -1,4 +1,4 @@
-interface ServiceRequest{
+export interface ServiceRequest{
     id: string
     room: string
     created: number
@@ -6,7 +6,7 @@ interface ServiceRequest{
     requestedOffering: Offering[]
 }
 
-interface Offering{
+export interface Offering{
     desc: string
     cost: number
 }

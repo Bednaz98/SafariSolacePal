@@ -3,6 +3,9 @@ import { appContext } from "./app-context";
 import LocalHandlerInterface from "./local-h-interface";
 import LocalHandler from "./localhandler";
 import axios from "axios"
+import { Activity } from "./activity";
+import Reservation from "./Reservation";
+import { Offering, ServiceRequest } from "./room-service";
 
 export interface httphandlerInterface{
 
@@ -43,8 +46,8 @@ export default class httpHandler implements httphandlerInterface{
     /**this function returns the URL to work with, if devMod is set to false, 
     * it will return the production URL, if true, it will return 'http//localhost:[port]'*/
     private getURL(){
-        if(this.devMode){ return `https://c27c0348-eb0c-4ac0-afe2-101bc195d6a5.mock.pstmn.io`} //postman mock
-        else {return  this.useURL}
+        if(this.devMode){ return `https://dabbdf3a-3f8b-478f-9599-b3c951a5fb6e.mock.pstmn.io`} //postman mock
+        else {return  this.useURL} 
     }
 
     //constructor
