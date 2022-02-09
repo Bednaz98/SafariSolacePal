@@ -2,9 +2,10 @@ import { View } from "react-native";
 import BasicText, { TextType } from '../../SafariSolaceStyleTools/basictext'
 import BasicInputText from '../../SafariSolaceStyleTools/basicinputtext'
 import BasicButton from '../../SafariSolaceStyleTools/basicbutton'
-import { useState } from "react";
+import { useContext, useState } from "react";
 import httpHandler from "../../classes-interfaces/http-handler";
 import LoadingScreen from "../loadingScreen";
+import { appContext } from "../../classes-interfaces/app-context";
 
 
 export default function ReservationLogin(props){
@@ -14,6 +15,7 @@ export default function ReservationLogin(props){
     const [isLoading, setIsLoading] = useState(false);
 
     const HTTP:httpHandler = new httpHandler(true)
+    const context = useContext(appContext)
 
     /**this should be used to check if the input reservation is valid*/
     function reservationCheck(){
@@ -25,11 +27,11 @@ export default function ReservationLogin(props){
         try {
             console.log("try login pressed");
             setIsLoading(true)
-            const returnReservation = await HTTP.getReservations(reservation)
             setShowError(false);
-            console.log("login data: ",returnReservation)
-            await HTTP.syncApp(reservation)
-            await props.setPageIndex(-1) //go to loading screen
+            //console.log("login data: ",returnReservation)
+            const isReady = await HTTP.syncApp(reservation)
+            if (isReady) context.setPage(1)
+            //await props.setPageIndex(-1) //go to loading screen
             //Set context State Here ...
             //switch page ...
         } catch (error) {
