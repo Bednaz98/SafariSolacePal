@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { appContext } from "./app-context";
 import LocalHandlerInterface from "./local-h-interface";
+import Reservation from "./Reservation";
+import { Offering } from "./room-service";
 
 
 export default class LocalHandler implements LocalHandlerInterface{

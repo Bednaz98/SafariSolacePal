@@ -9,6 +9,8 @@ import ReservationLogin from './components/page/login-page'
 import ReservationHomePage from './components/page/reservation-homepage';
 import NavBar from './components/children/nav-bar';
 import ActivityView from './components/page/activity-view';
+import Reservation from './classes-interfaces/Reservation';
+import { Offering } from './classes-interfaces/room-service';
 
 
 export default function App() {

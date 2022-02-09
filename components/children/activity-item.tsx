@@ -1,3 +1,4 @@
+import { Activity } from "../../classes-interfaces/activity";
 import BasicModal from "../../SafariSolaceStyleTools/basicmodal";
 import BasicText from "../../SafariSolaceStyleTools/basictext";
 

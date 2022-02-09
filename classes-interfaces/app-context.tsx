@@ -1,4 +1,7 @@
 import React, { createContext, useContext } from "react";
+import { Activity } from "./activity";
+import Reservation from "./Reservation";
+import { Offering } from "./room-service";
 
 
 

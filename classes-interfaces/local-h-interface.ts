@@ -1,3 +1,5 @@
+import Reservation from "./Reservation";
+import { Offering } from "./room-service";
 
 
 
