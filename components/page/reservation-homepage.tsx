@@ -5,6 +5,8 @@ import BasicText from "../../SafariSolaceStyleTools/basictext";
 
 
 export default function ReservationHomePage(){
+    const context = useContext(appContext);
+    console.log('Context State: ',context)
     
 
     function GetRoomName(){

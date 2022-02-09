@@ -50,6 +50,7 @@ export function RoomServiceOfferings() {
             <View>
               <BasicText text={item.desc} />
               <BasicText text={"$" + item.cost} />
+
               <BasicButton onPress={addOffer(item)} title={"Add"} />
             </View>
           );

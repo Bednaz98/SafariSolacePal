@@ -16,7 +16,8 @@ export default class LocalHandler implements LocalHandlerInterface{
         return true;
     }
     getLocalOfferings(): Offering[] {
-        return this.context.serverOfferings
+        if(this.context.serverOfferings){return this.context.serverOfferings}
+        else return []
     }
     setLocalOfferings(ServerOfferingData: Offering[]): boolean {
         this.context.setServerOfferings(ServerOfferingData)
@@ -24,7 +25,8 @@ export default class LocalHandler implements LocalHandlerInterface{
     }
 
     getUserOfferings(): Offering[] {
-        return this.context.userOfferings
+        if(this.context.userOfferings) {return this.context.userOfferings}
+        else return []
     }
     setUserOfferings(ServerOfferingData: Offering[]): boolean {
         this.context.setUserOfferings(ServerOfferingData)
