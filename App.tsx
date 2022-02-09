@@ -9,11 +9,12 @@ import ReservationLogin from './components/page/login-page'
 import ReservationHomePage from './components/page/reservation-homepage';
 import NavBar from './components/children/nav-bar';
 import ActivityView from './components/page/activity-view';
+import { RoomServiceOfferings } from './components/page/all-roomSrv-view';
 
 
 export default function App() {
   const [theme, setTheme] = useState(Theme.default);
-  const [pageIndex, setPageIndex] = useState(-1);
+  const [pageIndex, setPageIndex] = useState(5);
 
 
   // dummy values
@@ -63,7 +64,7 @@ export default function App() {
       case /*Problem Report*/           2:{return (<ProblemReport/>)} 
       case /*Brandon Testing*/  3:{return (<ActivityView/>)}
       case /*Kris Testing*/     4:{return (<><Text>Kris</Text></>)}
-      case /*John Testing*/     5:{return (<><Text>John</Text></>)}
+      case /*John Testing*/     5:{return (<><RoomServiceOfferings/></>)}
       case /*Josh testing*/     6:{return (<><Text>Josh</Text></>)}
 
     }
