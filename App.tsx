@@ -11,11 +11,12 @@ import NavBar from './components/children/nav-bar';
 import ActivityView from './components/page/activity-view';
 import Reservation from './classes-interfaces/Reservation';
 import { Offering } from './classes-interfaces/room-service';
+import { RoomServiceOfferings } from './components/page/all-roomSrv-view';
 
 
 export default function App() {
   const [theme, setTheme] = useState(Theme.default);
-  const [pageIndex, setPageIndex] = useState(5);
+  const [pageIndex, setPageIndex] = useState(0);
 
 
   // dummy values
@@ -57,12 +58,12 @@ export default function App() {
 
     switch(pageIndex){
       default :{return < ShowNavBar/> }
-      case                              0:{return (<View><ReservationLogin/></View>)}
+      case                              0:{return (<View><ReservationLogin setPageIndex = {setPageIndex}/></View>)}
       case /*Home page*/                1:{return (<View><ReservationHomePage/></View> )}
-     // case /*All Room Service*/         2:{ return (<View></View> /*View Requested Services*/) }
+      case /*All Room Service*/         2:{ return (<View><RoomServiceOfferings/></View> /*View Requested Services*/) }
       //case /*Requested Room Service*/   3:{return (<View></View> /*View Offered Services*/ )}
       case /*All Events*/               4:{  console.log("Events");return ( <View><ActivityView/></View> )}
-      case /*Problem Report*/           2:{return (<ProblemReport/>)} 
+      case /*Problem Report*/           5:{return (<ProblemReport/>)} 
       case /*Brandon Testing*/  3:{return (<ActivityView/>)}
       case /*Kris Testing*/     4:{return (<><Text>Kris</Text></>)}
       case /*John Testing*/     5:{return (<><RoomServiceOfferings/></>)}

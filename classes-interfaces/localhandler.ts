@@ -19,7 +19,7 @@ export default class LocalHandler implements LocalHandlerInterface{
         return this.context.serverOfferings
     }
     setLocalOfferings(ServerOfferingData: Offering[]): boolean {
-        this.context.setServerOfferings
+        this.context.setServerOfferings(ServerOfferingData)
         return true
     }
 

@@ -7,6 +7,7 @@ import LocalHandler from "../../classes-interfaces/localhandler";
 import BasicButton from "../../SafariSolaceStyleTools/basicbutton";
 import BasicText from "../../SafariSolaceStyleTools/basictext";
 import v4 from "uuid/v4";
+import { Offering } from "../../classes-interfaces/room-service";
 
 export function RoomServiceOfferings() {
   const httpHandle = new httpHandler();

@@ -3,24 +3,32 @@ import BasicText, { TextType } from '../../SafariSolaceStyleTools/basictext'
 import BasicInputText from '../../SafariSolaceStyleTools/basicinputtext'
 import BasicButton from '../../SafariSolaceStyleTools/basicbutton'
 import { useState } from "react";
+import httpHandler from "../../classes-interfaces/http-handler";
+import LocalHandler from "../../classes-interfaces/localhandler";
 
 
-export default function ReservationLogin(){
+export default function ReservationLogin(props){
     const [reservation, setReservation] = useState('');
     const [firstTry, setFirstTry] = useState(false);
     const [showError, setShowError] = useState(false);
+
+    const HTTP:httpHandler = new httpHandler(true)
+    const local:LocalHandler = new LocalHandler()
 
     /**this should be used to check if the input reservation is valid*/
     function reservationCheck(){
         if(!firstTry){setFirstTry(true)};
         return Boolean(reservation.length >0);
     }
-    function tryLoginHTTP(){
+    async function tryLoginHTTP(){
         if(!firstTry){setFirstTry(true)}
         try {
             console.log("try login pressed");
-            //HTTP request here ....
+            const returnReservation = await HTTP.getReservations(reservation)
             setShowError(false);
+            console.log("login data: ",returnReservation)
+            local.setLocalReservation(returnReservation)
+            await props.setPageIndex(1)
             //Set context State Here ...
             //switch page ...
         } catch (error) {

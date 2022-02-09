@@ -1,6 +1,7 @@
 
 import React, { useEffect } from "react"
 import { ScrollView, View } from "react-native"
+import { Activity } from "../../classes-interfaces/activity"
 import httpHandler, { httphandlerInterface } from "../../classes-interfaces/http-handler"
 import BasicText from "../../SafariSolaceStyleTools/basictext"
 import ActivityItem from "../children/activity-item"
