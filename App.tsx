@@ -10,7 +10,7 @@ import ReservationHomePage from './components/page/reservation-homepage';
 import NavBar from './components/children/nav-bar';
 import ActivityView from './components/page/activity-view';
 import Reservation from './classes-interfaces/Reservation';
-import { Offering } from './classes-interfaces/room-service';
+import { Offering, ServiceRequest } from './classes-interfaces/room-service';
 import { RoomServiceOfferings } from './components/page/all-roomSrv-view';
 import { UserRoomServiceOrder } from './components/page/user-roomSrv';
 
@@ -28,8 +28,8 @@ export default function App() {
     owner: '',
     room: ''
   }
-  const dummyOffering1:Offering[] =[]
-  const dummyOffering2:Offering[] =[]
+  const dummyOffering1:ServiceRequest[] =[]
+  const dummyOffering2:ServiceRequest[] =[]
 
   const [reservation, setReservation] = useState(dummyReservation);
   const [serverOfferingList, setServerOfferingList] = useState(dummyOffering1);

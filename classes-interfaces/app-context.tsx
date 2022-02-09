@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from "react";
 import { Activity } from "./activity";
 import Reservation from "./Reservation";
-import { Offering } from "./room-service";
+import { Offering, ServiceRequest } from "./room-service";
 
 
 
@@ -9,10 +9,10 @@ import { Offering } from "./room-service";
 export interface AppContextInterface{
     reservationData:Reservation
     setReservationData:React.Dispatch<React.SetStateAction<Reservation>>
-    serverOfferings:Offering[]
-    setServerOfferings:React.Dispatch<React.SetStateAction<Offering[]>>
-    userOfferings:Offering[]
-    setUserOfferings:React.Dispatch<React.SetStateAction<Offering[]>>
+    serverOfferings:ServiceRequest[]
+    setServerOfferings:React.Dispatch<React.SetStateAction<ServiceRequest[]>>
+    userOfferings:ServiceRequest[]
+    setUserOfferings:React.Dispatch<React.SetStateAction<ServiceRequest[]>>
     availableActivities:Activity[]
     setAvailableActivities:React.Dispatch<React.SetStateAction<Activity[]>>
 }

@@ -7,18 +7,20 @@ import LocalHandler from "../../classes-interfaces/localhandler";
 import BasicButton from "../../SafariSolaceStyleTools/basicbutton";
 import BasicText from "../../SafariSolaceStyleTools/basictext";
 import v4 from "uuid/v4";
-import { Offering } from "../../classes-interfaces/room-service";
+import { Offering, ServiceRequest } from "../../classes-interfaces/room-service";
 import localhandler from "../../classes-interfaces/localhandler";
 
 export function UserRoomServiceOrder() {
   const httpHandle = new httpHandler();
-  const localhandle= new localhandler()
 
-  const arr: Offering[] = []; 
+
+  const arr = localhandler.get;
+  requestedOfferings = arr.requestedOffering;
+  
   const [orders, setOrders] = useState(arr);
 
   useEffect(() => {
-    setOrders(localhandle.getUserOfferings());
+    setOrders(httpHandle.);
     //setOrders(testArr());
 }, []);
 
