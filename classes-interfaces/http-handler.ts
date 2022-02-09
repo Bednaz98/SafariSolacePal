@@ -32,7 +32,7 @@ export interface httphandlerInterface{
     cancelServiceRequest(request: ServiceRequest): Promise<any> 
 
     /** Sync front and backend by fetching backend data and updating local context */
-    syncApp() : Promise<boolean>
+    syncApp(id:string) : Promise<boolean>
 }
 
 export default class httpHandler implements httphandlerInterface{
@@ -120,12 +120,12 @@ export default class httpHandler implements httphandlerInterface{
         return (response)
     }
 
-    async syncApp(){
+    async syncApp(id:string){
 
         //get-n-set
-        this.localHandler.setLocalReservation(await this.getReservations(this.context.reservationData.id))
+        this.localHandler.setLocalReservation(await this.getReservations(id))
         this.localHandler.setLocalOfferings(await this.getRoomOfferings())
-        this.localHandler.setUserOfferings(await this.getRoomOfferings(this.context.reservationData.id))
+        this.localHandler.setUserOfferings(await this.getRoomOfferings(id))
         return (true)
     }
 } 

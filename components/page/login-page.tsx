@@ -27,7 +27,7 @@ export default function ReservationLogin(props){
             const returnReservation = await HTTP.getReservations(reservation)
             setShowError(false);
             console.log("login data: ",returnReservation)
-            local.setLocalReservation(returnReservation)
+            await HTTP.syncApp(reservation)
             await props.setPageIndex(1)
             //Set context State Here ...
             //switch page ...
@@ -41,6 +41,7 @@ export default function ReservationLogin(props){
     }
 
     function InvalidWarning(){
+        return <> <TryLoginButton/></>
         if(!firstTry){ return <> <TryLoginButton/></>}
         else if(!showError && reservationCheck()){ return <><TryLoginButton/></>}
         else{return <><BasicText text={"You may have entered an invalid URL, if not please contact a manager"}/> </>}

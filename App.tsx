@@ -12,6 +12,7 @@ import ActivityView from './components/page/activity-view';
 import Reservation from './classes-interfaces/Reservation';
 import { Offering } from './classes-interfaces/room-service';
 import { RoomServiceOfferings } from './components/page/all-roomSrv-view';
+import { UserRoomServiceOrder } from './components/page/user-roomSrv';
 
 
 export default function App() {
@@ -49,8 +50,7 @@ export default function App() {
   const themeContextObject:ThemeContextInterface = {theme:theme,setTheme:setTheme}
 
   function ShowNavBar(){
-    if(! (reservation.id.length>0) ) return <NavBar navFunc={setPageIndex}/>
-    else return <></>
+    return <NavBar navFunc={setPageIndex}/>
   }
 
 
@@ -58,16 +58,12 @@ export default function App() {
 
     switch(pageIndex){
       default :{return < ShowNavBar/> }
-      case                              0:{return (<View><ReservationLogin setPageIndex = {setPageIndex}/></View>)}
-      case /*Home page*/                1:{return (<View><ReservationHomePage/></View> )}
-      case /*All Room Service*/         2:{ return (<View><RoomServiceOfferings/></View> /*View Requested Services*/) }
-      //case /*Requested Room Service*/   3:{return (<View></View> /*View Offered Services*/ )}
-      case /*All Events*/               4:{  console.log("Events");return ( <View><ActivityView/></View> )}
-      case /*Problem Report*/           5:{return (<ProblemReport/>)} 
-      case /*Brandon Testing*/  3:{return (<ActivityView/>)}
-      case /*Kris Testing*/     4:{return (<><Text>Kris</Text></>)}
-      case /*John Testing*/     5:{return (<><RoomServiceOfferings/></>)}
-      case /*Josh testing*/     6:{return (<><Text>Josh</Text></>)}
+      case                              0:{return (<ReservationLogin setPageIndex = {setPageIndex}/>)}
+      case /*Home page*/                1:{return (<>< ShowNavBar/><ReservationHomePage/> </>)}
+      case /*All Events*/               2:{return (<>< ShowNavBar/><UserRoomServiceOrder/></> )}
+      case /*All Room Service*/         3:{return (<>< ShowNavBar/><RoomServiceOfferings/></> ) }
+      case /*All Events*/               4:{return (<>< ShowNavBar/><ActivityView/></> )}
+      case /*Problem Report*/           5:{return (<>< ShowNavBar/><ProblemReport/></>)} 
 
     }
   }

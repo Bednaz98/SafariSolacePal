@@ -8,16 +8,18 @@ import BasicButton from "../../SafariSolaceStyleTools/basicbutton";
 import BasicText from "../../SafariSolaceStyleTools/basictext";
 import v4 from "uuid/v4";
 import { Offering } from "../../classes-interfaces/room-service";
+import localhandler from "../../classes-interfaces/localhandler";
 
 export function RoomServiceOfferings() {
   const httpHandle = new httpHandler();
+  const localhandle =new localhandler()
 
   const arr: Offering[] = []; 
   const [orders, setOrders] = useState(arr);
 
   useEffect(() => {
-    /* setOrders(localhandle.getLocalOfferings());  */
-    setOrders(testArr());
+    setOrders(localhandle.getLocalOfferings());
+    //setOrders(testArr());
   }, []);
 
   function testArr(){

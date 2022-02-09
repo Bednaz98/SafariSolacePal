@@ -8,7 +8,7 @@ import GetColor, { Color } from './colorstyle'
 /** the only required prop, @attribute 'text', optionally @Attribute'textType' of type 'TextType' can be included for specifying extra styling options*/
 export default function BasicText(props){
     const {text} = props
-    //if(!text){throw new Error('You did not pass a text value into one of your text')}
+    if(!text){throw new Error('You did not pass a text value into one of your text')}
     //This will grab from the props the type of text for styling
     // is not found, it will default to general text
     const textType:TextType = props?.type ?? TextType.General
