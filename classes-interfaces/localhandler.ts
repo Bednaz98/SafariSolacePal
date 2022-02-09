@@ -11,7 +11,7 @@ export default class LocalHandler implements LocalHandlerInterface{
     getLocalReservation(): Reservation {
         return this.context.reservationData
     }
-    setLocalReservation(ServerReservationData: Reservation): boolean {
+    async setLocalReservation(ServerReservationData: Reservation): Promise<boolean> {
         this.context.setReservationData(ServerReservationData);
         return true;
     }

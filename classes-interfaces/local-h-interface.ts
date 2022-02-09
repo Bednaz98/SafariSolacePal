@@ -8,7 +8,7 @@ export default interface LocalHandlerInterface{
         /**used to get the reservation data saved locally*/
         getLocalReservation():Reservation
         /**used to save reservation data retrieved from the serer*/
-        setLocalReservation(ServerReservationData:Reservation):boolean
+        setLocalReservation(ServerReservationData:Reservation):Promise<boolean>
         /**used to get the offering that have been locally retrieved from the serer*/
         getLocalOfferings():Offering[]
         /**used to set offering from the server locally*/

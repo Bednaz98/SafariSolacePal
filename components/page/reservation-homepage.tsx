@@ -5,19 +5,20 @@ import BasicText from "../../SafariSolaceStyleTools/basictext";
 
 
 export default function ReservationHomePage(){
+
     const context = useContext(appContext);
     console.log("🚀 ~ file: reservation-homepage.tsx ~ line 9 ~ ReservationHomePage ~ context", context)
 
     function GetRoomName(){
-        const context = useContext(appContext);
+        //const context = useContext(appContext);
         return(
         <View style={{flexDirection:"row"}}>
             <BasicText text={"Room Name: "}/>
-            <BasicText text={context.reservationData?.room ?? 'example'}/>
+            <BasicText text={context.reservationData?.room ?? 'not working'}/>
         </View>)
     }
     function GetCheckingInTime(){
-        const context = useContext(appContext);
+        //const context = useContext(appContext);
         return(
             <View style={{flexDirection:"row"}}>
                 <BasicText text={"Check In Time: "}/>
@@ -25,7 +26,7 @@ export default function ReservationHomePage(){
             </View>)
     }
     function GetCheckingOutTime(){
-        const context = useContext(appContext);
+        //const context = useContext(appContext);
         return(
             <View style={{flexDirection:"row"}}>
                 <BasicText text={"Check Out Time: "}/>
@@ -33,11 +34,11 @@ export default function ReservationHomePage(){
             </View>)
     }
     function GetReservationID(){
-        const context = useContext(appContext);
+        //const context = useContext(appContext);
         return(
             <View style={{flexDirection:"row"}}>
                 <BasicText text={"Reservation ID:  "}/>
-                <BasicText text={(context.reservationData?.id ?? 'EXAMPLE')}/>
+                <BasicText text={(context.reservationData?.id ?? 'not working')}/>
             </View>)
     }
 
