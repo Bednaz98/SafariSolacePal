@@ -35,7 +35,8 @@ export function RoomServiceOfferings() {
   }
 
   function addOffer(props) {
-    httpHandle.postServiceRequest(props);
+    
+
   }
 
   return (
@@ -47,7 +48,9 @@ export function RoomServiceOfferings() {
         renderItem={({ item }) => {
           return (
             <View>
-              <BasicText text={item.desc ?? "example"} />
+              <BasicText text={item.desc} />
+              <BasicText text={"$" + item.cost} />
+
               <BasicButton onPress={addOffer(item)} title={"Add"} />
             </View>
           );
