@@ -52,7 +52,8 @@ export default function App() {
     userOfferings: userServerOffering,
     setUserOfferings: setUserServerOffering,
     availableActivities: activityList,
-    setAvailableActivities: setActivityList
+    setAvailableActivities: setActivityList,
+    setPage:setPageIndex
   }
   const themeContextObject:ThemeContextInterface = {theme:theme,setTheme:setTheme}
 

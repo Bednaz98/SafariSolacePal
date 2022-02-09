@@ -7,6 +7,7 @@ import { Offering, ServiceRequest } from "./room-service";
 
 
 export interface AppContextInterface{
+    setPage:React.Dispatch<React.SetStateAction<number>>
     reservationData:Reservation
     setReservationData:React.Dispatch<React.SetStateAction<Reservation>>
     serverOfferings:Offering[]
@@ -38,10 +39,11 @@ export const initContext: AppContextInterface = {
     setReservationData: () => { },
     serverOfferings: [],
     setServerOfferings: () => { },
-    userOfferings:dummyOffering,
-    setUserOfferings: ()=>{},
+    userOfferings: dummyOffering,
+    setUserOfferings: () => { },
     availableActivities: [],
-    setAvailableActivities: ()=>{}
+    setAvailableActivities: () => { },
+    setPage:()=>{}
 }
 
 export const appContext = createContext(initContext);
