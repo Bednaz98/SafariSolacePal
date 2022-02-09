@@ -12,8 +12,8 @@ export interface AppContextInterface{
     setReservationData:React.Dispatch<React.SetStateAction<Reservation>>
     serverOfferings:Offering[]
     setServerOfferings:React.Dispatch<React.SetStateAction<Offering[]>>
-    userOfferings:ServiceRequest
-    setUserOfferings:React.Dispatch<React.SetStateAction<ServiceRequest>>
+    userOfferings:Offering[]
+    setUserOfferings:React.Dispatch<React.SetStateAction<Offering[]>>
     availableActivities:Activity[]
     setAvailableActivities:React.Dispatch<React.SetStateAction<Activity[]>>
 }
@@ -26,13 +26,13 @@ const dummyReservation:Reservation = {
     owner: "",
     room: ""
 }
-const dummyOffering:ServiceRequest={
-    id: "",
-    room: "",
-    created: 0,
-    status: "Ordered",
-    requestedOffering: []
-}
+const dummyOffering : Offering[]=
+[{
+    desc: "pizza in bed",
+    cost: 12
+}]
+
+
 
 export const initContext: AppContextInterface = {
     reservationData: dummyReservation,

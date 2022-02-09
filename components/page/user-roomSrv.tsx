@@ -2,8 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { FlatList } from "react-native";
 import { View } from "react-native";
-import httpHandler from "../../classes-interfaces/http-handler";
-import LocalHandler from "../../classes-interfaces/localhandler";
 import BasicButton from "../../SafariSolaceStyleTools/basicbutton";
 import BasicText from "../../SafariSolaceStyleTools/basictext";
 import v4 from "uuid/v4";
@@ -11,16 +9,15 @@ import { Offering, ServiceRequest } from "../../classes-interfaces/room-service"
 import localhandler from "../../classes-interfaces/localhandler";
 
 export function UserRoomServiceOrder() {
-  const httpHandle = new httpHandler();
+    //const httpHandle = new httpHandler();
+    const localHandle = new localhandler()
 
+    const userOfferings = localHandle.getLocalOfferings()
 
-  const arr = localhandler.get;
-  requestedOfferings = arr.requestedOffering;
-  
-  const [orders, setOrders] = useState(arr);
-  console.log(localhandle.getUserOfferings())
+    const [orders, setOrders] = useState(userOfferings);
+    //console.log(localHandle.getUserOfferings())
 
-  useEffect(() => {
+    useEffect(() => {
     setOrders(httpHandle.);
     //setOrders(testArr());
 }, []);

@@ -125,7 +125,7 @@ export default class httpHandler implements httphandlerInterface{
         //get-n-set
         this.localHandler.setLocalReservation(await this.getReservations(id))
         this.localHandler.setLocalOfferings(await this.getRoomOfferings())
-        //this.localHandler.setUserOfferings(await this.getRoomOfferings(id))
+        this.localHandler.setUserOfferings(await this.getRoomOfferings(id))
 
         return (true)
     }
