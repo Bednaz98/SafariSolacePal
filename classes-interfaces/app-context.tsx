@@ -9,10 +9,10 @@ import { Offering, ServiceRequest } from "./room-service";
 export interface AppContextInterface{
     reservationData:Reservation
     setReservationData:React.Dispatch<React.SetStateAction<Reservation>>
-    serverOfferings:ServiceRequest[]
-    setServerOfferings:React.Dispatch<React.SetStateAction<ServiceRequest[]>>
-    userOfferings:ServiceRequest[]
-    setUserOfferings:React.Dispatch<React.SetStateAction<ServiceRequest[]>>
+    serverOfferings:Offering[]
+    setServerOfferings:React.Dispatch<React.SetStateAction<Offering[]>>
+    userOfferings:ServiceRequest
+    setUserOfferings:React.Dispatch<React.SetStateAction<ServiceRequest>>
     availableActivities:Activity[]
     setAvailableActivities:React.Dispatch<React.SetStateAction<Activity[]>>
 }
@@ -25,13 +25,20 @@ const dummyReservation:Reservation = {
     owner: "",
     room: ""
 }
+const dummyOffering:ServiceRequest={
+    id: "",
+    room: "",
+    created: 0,
+    status: "Ordered",
+    requestedOffering: []
+}
 
 export const initContext: AppContextInterface = {
     reservationData: dummyReservation,
     setReservationData: () => { },
     serverOfferings: [],
     setServerOfferings: () => { },
-    userOfferings: [],
+    userOfferings:dummyOffering,
     setUserOfferings: ()=>{},
     availableActivities: [],
     setAvailableActivities: ()=>{}

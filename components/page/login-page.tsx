@@ -4,16 +4,16 @@ import BasicInputText from '../../SafariSolaceStyleTools/basicinputtext'
 import BasicButton from '../../SafariSolaceStyleTools/basicbutton'
 import { useState } from "react";
 import httpHandler from "../../classes-interfaces/http-handler";
-import LocalHandler from "../../classes-interfaces/localhandler";
+import LoadingScreen from "../loadingScreen";
 
 
 export default function ReservationLogin(props){
     const [reservation, setReservation] = useState('');
     const [firstTry, setFirstTry] = useState(false);
     const [showError, setShowError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const HTTP:httpHandler = new httpHandler(true)
-    const local:LocalHandler = new LocalHandler()
 
     /**this should be used to check if the input reservation is valid*/
     function reservationCheck(){
@@ -24,6 +24,7 @@ export default function ReservationLogin(props){
         if(!firstTry){setFirstTry(true)}
         try {
             console.log("try login pressed");
+            setIsLoading(true)
             const returnReservation = await HTTP.getReservations(reservation)
             setShowError(false);
             console.log("login data: ",returnReservation)
@@ -33,6 +34,7 @@ export default function ReservationLogin(props){
             //switch page ...
         } catch (error) {
             setShowError(true);
+            setIsLoading(false)
         }
     }
 
@@ -46,12 +48,28 @@ export default function ReservationLogin(props){
         else if(!showError && reservationCheck()){ return <><TryLoginButton/></>}
         else{return <><BasicText text={"You may have entered an invalid URL, if not please contact a manager"}/> </>}
     }
+
+    function Display(){
+        switch(isLoading){
+            case true:{return <LoadingScreen/>}
+            case false:{
+                return (
+                <View>
+                    <BasicText text={"Welcome To Safari SolaceStyle Resorts"} textType ={TextType.Title}/>
+                    <BasicText text={"Please Enter your Reservation ID"} textType ={TextType.Header}/>
+                    <BasicInputText value = {reservation} placeholder={"1234"} onChangeText={setReservation} />
+                    <InvalidWarning />
+                </View>)
+            }
+
+        }
+    }
     return(
         <View>
-            <BasicText text={"Welcome To Safari SolaceStyle Resorts"} textType ={TextType.Title}/>
-            <BasicText text={"Please Enter your Reservation ID"} textType ={TextType.Header}/>
-            <BasicInputText value = {reservation} placeholder={"1234"} onChangeText={setReservation} />
-            <InvalidWarning />
-        </View>
+                    <BasicText text={"Welcome To Safari SolaceStyle Resorts"} textType ={TextType.Title}/>
+                    <BasicText text={"Please Enter your Reservation ID"} textType ={TextType.Header}/>
+                    <BasicInputText value = {reservation} placeholder={"1234"} onChangeText={setReservation} />
+                    <InvalidWarning />
+                </View>
     )
 }

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { appContext } from "./app-context";
 import LocalHandlerInterface from "./local-h-interface";
 import Reservation from "./Reservation";
-import { Offering } from "./room-service";
+import { Offering, ServiceRequest } from "./room-service";
 
 
 export default class LocalHandler implements LocalHandlerInterface{
@@ -25,10 +25,11 @@ export default class LocalHandler implements LocalHandlerInterface{
     }
 
     getUserOfferings(): Offering[] {
-        if(this.context.userOfferings) {return this.context.userOfferings}
+        const returnArray:Offering[] =this.context.userOfferings.requestedOffering;
+        if(returnArray.length >0) {return returnArray}
         else return []
     }
-    setUserOfferings(ServerOfferingData: Offering[]): boolean {
+    setUserOfferings(ServerOfferingData: ServiceRequest): boolean {
         this.context.setUserOfferings(ServerOfferingData)
         return true
     }

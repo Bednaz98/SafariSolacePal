@@ -13,6 +13,7 @@ import Reservation from './classes-interfaces/Reservation';
 import { Offering, ServiceRequest } from './classes-interfaces/room-service';
 import { RoomServiceOfferings } from './components/page/all-roomSrv-view';
 import { UserRoomServiceOrder } from './components/page/user-roomSrv';
+import LoadingScreen from './components/loadingScreen';
 
 
 export default function App() {
@@ -28,8 +29,16 @@ export default function App() {
     owner: '',
     room: ''
   }
-  const dummyOffering1:ServiceRequest[] =[]
-  const dummyOffering2:ServiceRequest[] =[]
+
+  const dummyOffering1:Offering[] =[]
+  const dummyOffering2:ServiceRequest={
+    id: '',
+    room: '',
+    created: 0,
+    status: 'Ordered',
+    requestedOffering: []
+  }
+
 
   const [reservation, setReservation] = useState(dummyReservation);
   const [serverOfferingList, setServerOfferingList] = useState(dummyOffering1);
@@ -55,16 +64,14 @@ export default function App() {
 
 
   function SwitchPage(){
-
     switch(pageIndex){
-      default :{return < ShowNavBar/> }
       case                              0:{return (<ReservationLogin setPageIndex = {setPageIndex}/>)}
       case /*Home page*/                1:{return (<>< ShowNavBar/><ReservationHomePage/> </>)}
       case /*All Events*/               2:{return (<>< ShowNavBar/><UserRoomServiceOrder/></> )}
       case /*All Room Service*/         3:{return (<>< ShowNavBar/><RoomServiceOfferings/></> ) }
       case /*All Events*/               4:{return (<>< ShowNavBar/><ActivityView/></> )}
       case /*Problem Report*/           5:{return (<>< ShowNavBar/><ProblemReport/></>)} 
-
+      default :                           {return <LoadingScreen/>}
     }
   }
 
