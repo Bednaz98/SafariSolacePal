@@ -12,7 +12,8 @@ export function UserRoomServiceOrder() {
     //const httpHandle = new httpHandler();
     const localHandle = new localhandler()
 
-    const userOfferings = localHandle.getLocalOfferings()
+    const userOfferings = localHandle.getUserOfferings()
+    console.log("🚀 ~ file: user-roomSrv.tsx ~ line 16 ~ UserRoomServiceOrder ~ userOfferings", userOfferings)
 
     const [orders, setOrders] = useState(userOfferings);
     //console.log(localHandle.getUserOfferings())

@@ -30,7 +30,7 @@
         "room": "404",
         "created": 789,
         "status": "Ordered" | "Processing" | "Completed" | "Cancelled",
-        "requestedOffering": [{"wine": "", "cost" : 8}]
+        "requestedOffering": [{"desc": "wine", "cost" : 8}]
     }
 }
 

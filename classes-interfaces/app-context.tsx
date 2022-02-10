@@ -19,31 +19,29 @@ export interface AppContextInterface{
 }
 
 
-const dummyReservation:Reservation = {
-    id: "",
-    checkIn: 0,
-    checkOut: 1,
-    owner: "",
-    room: ""
-}
-const dummyOffering : Offering[]=
-[{
-    desc: "pizza in bed",
-    cost: 12
-}]
+// const dummyReservation:Reservation = {
+//     id: "",
+//     checkIn: 0,
+//     checkOut: 1,
+//     owner: "",
+//     room: ""
+// }
+// const dummyOffering : Offering[]=
+// [{
+//     desc: "pizza in bed",
+//     cost: 12
+// }]
 
+// export const initContext: AppContextInterface = {
+//     reservationData: dummyReservation,
+//     setReservationData: () => { },
+//     serverOfferings: [],
+//     setServerOfferings: () => { },
+//     userOfferings: dummyOffering,
+//     setUserOfferings: () => { },
+//     availableActivities: [],
+//     setAvailableActivities: () => { },
+//     setPage:()=>{}
+// }
 
-
-export const initContext: AppContextInterface = {
-    reservationData: dummyReservation,
-    setReservationData: () => { },
-    serverOfferings: [],
-    setServerOfferings: () => { },
-    userOfferings: dummyOffering,
-    setUserOfferings: () => { },
-    availableActivities: [],
-    setAvailableActivities: () => { },
-    setPage:()=>{}
-}
-
-export const appContext = createContext(initContext);
+export const appContext = createContext(undefined);

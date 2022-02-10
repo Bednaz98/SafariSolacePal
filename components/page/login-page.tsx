@@ -3,9 +3,9 @@ import BasicText, { TextType } from '../../SafariSolaceStyleTools/basictext'
 import BasicInputText from '../../SafariSolaceStyleTools/basicinputtext'
 import BasicButton from '../../SafariSolaceStyleTools/basicbutton'
 import { useContext, useEffect, useState } from "react";
-import httpHandler from "../../classes-interfaces/http-handler";
+import httpHandler, { httphandlerInterface } from "../../classes-interfaces/http-handler";
 import LoadingScreen from "../loadingScreen";
-import { appContext } from "../../classes-interfaces/app-context";
+import { appContext, AppContextInterface } from "../../classes-interfaces/app-context";
 
 
 export default function ReservationLogin(props){
@@ -15,10 +15,10 @@ export default function ReservationLogin(props){
     const [isLoading, setIsLoading] = useState(true);
     const [pageIndex, setPage] = useState(0)
 
-    const HTTP:httpHandler = new httpHandler(true)
-    const context = useContext(appContext)
+    const HTTP:httphandlerInterface = new httpHandler(true)
+    const context: AppContextInterface = useContext(appContext)
 
-    useEffect(()=>{context.setPage(1)}, [context.reservationData, context.userOfferings])
+    //useEffect(()=>{context.setPage(1)}, [context.reservationData, context.userOfferings])
     /**this should be used to check if the input reservation is valid*/
     function reservationCheck(){
         if(!firstTry){setFirstTry(true)};
@@ -30,14 +30,14 @@ export default function ReservationLogin(props){
             console.log("try login pressed");
             setShowError(false);
 
-            let isReady = false
-            HTTP.syncApp(reservationID).then((value)=> {isReady = value; console.log('http syncApp .then return:',isReady)})
-            console.log("isReady after syncApp: ",isReady)
-            //if (isReady) {context.setPage(1)}
-            //await props.setPageIndex(-1) //go to loading screen
+            await HTTP.syncApp(reservationID)
+            context.setPage(1)
+
+            console.log("context reservation data in login-page is ", context.reservationData )
             //Set context State Here ...
             //switch page ...
         } catch (error) {
+            console.log("sync app failed",error)
             setShowError(true);
             setIsLoading(false)
         }
