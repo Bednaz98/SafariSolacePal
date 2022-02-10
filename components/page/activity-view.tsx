@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { ScrollView, View } from "react-native"
 import { Activity } from "../../classes-interfaces/activity"
 import httpHandler, { httphandlerInterface } from "../../classes-interfaces/http-handler"
@@ -14,13 +14,22 @@ export default function ActivityView(){
     //     {"id":"34d4b13f-e400-4a99-9640-0f4b80777909","title":"Axe Throwing","desc":"Come chuck some axes.","startTime":1646772927,"endTime":1646772927,"location":"Beach","status":"On Schedule"}
     // ]
 
-    const handler: httphandlerInterface = new httpHandler();
+    const handler: httphandlerInterface = new httpHandler(true);
 
-    const response: any = handler.getActivities();
-    let activities: Activity[] = [];
-    response?.length ? activities = [...response] : activities = [response];
+    let dummyactivities: Activity[] = [];
+    const [activitiesState, setActivitiesState] = useState(dummyactivities)
+    //const response: any = handler.getActivities();
+    useEffect(()=>{setter()},[])
+
+    async function setter(){
+        const response: any = await handler.getActivities();
+        const activity: Activity[] = response
+        setActivitiesState(activity)
+    }
+
+    //response?.length ? activities = [...response] : activities = [response];
     
-    const activityItems = activities.map(a => <ActivityItem key={a.id} {...a}/>)
+    const activityItems = activitiesState.map(a => <ActivityItem key={a.id} {...a}/>)
 
     return(<View>
         <BasicText text={'Available Activities'}/>

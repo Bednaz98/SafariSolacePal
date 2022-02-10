@@ -63,8 +63,7 @@ export default class httpHandler implements httphandlerInterface{
         const data: Reservation = response.data; //doing this will not actually enforce a type. The actual response type could be different
         const fullResponse = response 
         console.log("🚀 ~ file: http-handler.ts ~ line 63 ~ httpHandler ~ getReservations ~ data", data)
-        console.log("🚀 ~ file: http-handler.ts ~ line 64 ~ httpHandler ~ getReservations ~ altData", fullResponse)
-        //this.localHandler.setLocalReservation(data);                  
+        console.log("🚀 ~ file: http-handler.ts ~ line 64 ~ httpHandler ~ getReservations ~ altData", fullResponse)               
         return data;
     }
 
@@ -124,6 +123,7 @@ export default class httpHandler implements httphandlerInterface{
         //fetcher...
         await axios.post(`${this.getURL()}/servicerequests`, request)
         const response = 'derp'
+        this.localHandler.setUserOfferings(await this.getRoomOfferings('must_be_unique'))
         return (response)
     }
 
