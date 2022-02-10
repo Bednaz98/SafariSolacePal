@@ -45,7 +45,7 @@ export default class httpHandler implements httphandlerInterface{
     /**this function returns the URL to work with, if devMod is set to false, 
     * it will return the production URL, if true, it will return 'http//localhost:[port]'*/
     private getURL(){
-        if(this.devMode){ return `https://319a8c0f-ef79-4712-9143-a05d5c7a379c.mock.pstmn.io`} //postman mock
+        if(this.devMode){ return `https://c694890a-a61f-4a7d-b7d5-10d29c28c10c.mock.pstmn.io`} //postman mock
         else {return  this.useURL} 
     }
 
