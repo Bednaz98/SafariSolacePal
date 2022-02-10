@@ -7,20 +7,16 @@ import BasicText from "../../SafariSolaceStyleTools/basictext";
 import v4 from "uuid/v4";
 import { Offering, ServiceRequest } from "../../classes-interfaces/room-service";
 import localhandler from "../../classes-interfaces/localhandler";
+import httpHandler from "../../classes-interfaces/http-handler";
 
 export function UserRoomServiceOrder() {
-    //const httpHandle = new httpHandler();
+    const httpHandle = new httpHandler(true);
     const localHandle = new localhandler()
 
-    const userOfferings = localHandle.getLocalOfferings()
+    const userOfferings = localHandle.getUserOfferings()
+    console.log("🚀 ~ file: user-roomSrv.tsx ~ line 16 ~ UserRoomServiceOrder ~ userOfferings", userOfferings)
 
     const [orders, setOrders] = useState(userOfferings);
-    //console.log(localHandle.getUserOfferings())
-
-    useEffect(() => {
-    setOrders(httpHandle.);
-    //setOrders(testArr());
-}, []);
 
   function testArr(){
     let arr1 = [];
@@ -35,7 +31,8 @@ export function UserRoomServiceOrder() {
   }
 
   function remove(props) {
-    httpHandle.cancelServiceRequest(props);
+    localHandle.deleteUserOffering(props);
+
   }
 
   return (
@@ -44,12 +41,12 @@ export function UserRoomServiceOrder() {
       <FlatList
         data={orders}
         keyExtractor={(item) => v4()}
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
           return (
             <View>
               <BasicText text={item.desc ?? "Example"} />
               <BasicText text={"$" + item.cost} />
-              <BasicButton onPress={remove(item.desc)} title={"Remove"} />
+              <BasicButton onPress={remove(index)} title={"Remove"} />
             </View>
           );
         }}

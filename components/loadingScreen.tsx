@@ -7,15 +7,14 @@ import BasicText from "../SafariSolaceStyleTools/basictext";
 
 
 export default function LoadingScreen(){
-    const context = useContext(appContext);
-    const HTTP = new httpHandler()
-    useEffect(() => {
-      
+    //const context = useContext(appContext);
+    // useEffect(() => {
+    //   context.setPage(1)
     
-      return () => {
+    // //   return () => {
 
-      };
-    }, [context]);
+    // //   };
+    // }, [context.]);
     
 
     return(

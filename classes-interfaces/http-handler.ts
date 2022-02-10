@@ -9,7 +9,7 @@ import { Offering, ServiceRequest } from "./room-service";
 
 export interface httphandlerInterface{
 
-    /** Get all information for the user's reservation by ID */
+    /** Get all information for the user's reservation by RESERVATION id */
     getReservations(id: string): Promise<Reservation>
 
     /** See all activities which are available.
@@ -18,7 +18,7 @@ export interface httphandlerInterface{
     getActivities(id?: string) : Promise< Activity | Activity[] >
 
     /** Get all room offerings
-     * @param id If included as an arguement, this will get offerings for only this user
+     * @param id ID of the SERVICE REQUEST. If included as an arguement, this will get offerings for only this user
      */
     getRoomOfferings(id? : string): Promise< Offering[] >
 
@@ -39,28 +39,31 @@ export default class httpHandler implements httphandlerInterface{
 
     /////////////////////////////////////////////
     private useURL:string = "http://20.124.74.192:3000";
-    private devMode:boolean = false;
-    private context = useContext(appContext);
+    private devMode:boolean;
     private localHandler: LocalHandlerInterface = new LocalHandler();
     
     /**this function returns the URL to work with, if devMod is set to false, 
     * it will return the production URL, if true, it will return 'http//localhost:[port]'*/
     private getURL(){
-        if(this.devMode){ return `https://dabbdf3a-3f8b-478f-9599-b3c951a5fb6e.mock.pstmn.io`} //postman mock
+        if(this.devMode){ return `https://319a8c0f-ef79-4712-9143-a05d5c7a379c.mock.pstmn.io`} //postman mock
         else {return  this.useURL} 
     }
 
     //constructor
-    constructor(dev:boolean = false){
+    constructor(dev:boolean){
         this.devMode=dev;
+        console.log("🚀 ~ file: http-handler.ts ~ line 56 ~ httpHandler ~ constructor ~ this.devMode", this.devMode)
+        
     }
     //////////////////////////////////////////////
 
     /** get a reservation by ID */
     async getReservations(id: string){
         const response = await axios.get(`${this.getURL()}/reservations/:${id}`);
-        const data: Reservation = response.data;  
-        //this.localHandler.setLocalReservation(data);                  
+        const data: Reservation = response.data; //doing this will not actually enforce a type. The actual response type could be different
+        const fullResponse = response 
+        console.log("🚀 ~ file: http-handler.ts ~ line 63 ~ httpHandler ~ getReservations ~ data", data)
+        console.log("🚀 ~ file: http-handler.ts ~ line 64 ~ httpHandler ~ getReservations ~ altData", fullResponse)               
         return data;
     }
 
@@ -80,8 +83,10 @@ export default class httpHandler implements httphandlerInterface{
 
     async getRoomOfferings(id? : string): Promise<Offering[]> {
         if (id){
-            const serviceRequest = await this.getRoomServiceRequests(id)
+            const serviceRequest = await this.getRoomServiceRequests('servicebyid')
             const offerings = serviceRequest as ServiceRequest
+            console.log("🚀 ~ file: http-handler.ts ~ line 88 ~ httpHandler ~ getRoomOfferings ~ offerings", offerings.requestedOffering)
+
             return offerings.requestedOffering
         }
         else{
@@ -95,6 +100,7 @@ export default class httpHandler implements httphandlerInterface{
         let response: any
         if (id) {
             response = await axios.get(`${this.getURL()}/servicerequests/:${id}`)
+            console.log("🚀 ~ file: http-handler.ts ~ line 103 ~ httpHandler ~ getRoomServiceRequests ~ response", response)
             const data = response.data as ServiceRequest; 
             return data;
         } 
@@ -117,16 +123,22 @@ export default class httpHandler implements httphandlerInterface{
         //fetcher...
         await axios.post(`${this.getURL()}/servicerequests`, request)
         const response = 'derp'
+        this.localHandler.setUserOfferings(await this.getRoomOfferings('must_be_unique'))
         return (response)
     }
 
     async syncApp(id:string){
-
         //get-n-set
         this.localHandler.setLocalReservation(await this.getReservations(id))
+        //const reservation = await this.getReservations(id)
+        //const activity = await this.getActivities()
+        //const reservation = await this.getReservations(id)
+        //const roomOfferings = await this.getRoomOfferings('must_be_unique')
+        //console.log("🚀 ~ file: http-handler.ts ~ line 134 ~ httpHandler ~ syncApp ~ roomOfferings", roomOfferings)
         this.localHandler.setLocalOfferings(await this.getRoomOfferings())
-        this.localHandler.setUserOfferings(await this.getRoomOfferings(id))
-
+        this.localHandler.setUserOfferings(await this.getRoomOfferings('must_be_unique'))
+        //this.context.setPage(1)
+        //console.log('wait')
         return (true)
     }
 } 

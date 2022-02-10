@@ -11,7 +11,7 @@ import { Offering } from "../../classes-interfaces/room-service";
 import localhandler from "../../classes-interfaces/localhandler";
 
 export function RoomServiceOfferings() {
-  const httpHandle = new httpHandler();
+  const httpHandle = new httpHandler(true);
   const localhandle =new localhandler()
 
   const arr: Offering[] = []; 

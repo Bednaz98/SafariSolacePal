@@ -14,6 +14,7 @@ import { Offering, ServiceRequest } from './classes-interfaces/room-service';
 import { RoomServiceOfferings } from './components/page/all-roomSrv-view';
 import { UserRoomServiceOrder } from './components/page/user-roomSrv';
 import LoadingScreen from './components/loadingScreen';
+import { Activity } from './classes-interfaces/activity';
 
 
 export default function App() {
@@ -21,29 +22,34 @@ export default function App() {
   const [pageIndex, setPageIndex] = useState(0);
 
 
-  // dummy values
-  const dummyReservation:Reservation={
-    id: '',
-    checkIn: 0,
-    checkOut: 0,
-    owner: '',
-    room: ''
-  }
+//   // dummy values
+//   const dummyReservation:Reservation={
+//     id: '',
+//     checkIn: 0,
+//     checkOut: 0,
+//     owner: '',
+//     room: ''
+//   }
 
-  const dummyOffering1:Offering[] =[]
-  const dummyOffering2:ServiceRequest={
-    id: '',
-    room: '',
-    created: 0,
-    status: 'Ordered',
-    requestedOffering: []
-  }
+// const dummyOffering1:Offering[] =[]
+//   const dummyOffering2:ServiceRequest={
+//     id: '',
+//     room: '',
+//     created: 0,
+//     status: 'Ordered',
+//     requestedOffering: []
+//   }
 
+// const dummyOffering2 : Offering[]=
+// [{
+//     desc: "pizza in bed",
+//     cost: 12
+// }]
 
-  const [reservation, setReservation] = useState(dummyReservation);
-  const [serverOfferingList, setServerOfferingList] = useState(dummyOffering1);
-  const [userServerOffering, setUserServerOffering] = useState(dummyOffering2);
-  const [activityList, setActivityList] = useState([]);
+  const [reservation, setReservation] = useState<Reservation>();
+  const [serverOfferingList, setServerOfferingList] = useState<Offering[]>();
+  const [userServerOffering, setUserServerOffering] = useState<Offering[]>();
+  const [activityList, setActivityList] = useState<Activity[]>();
 
 
   const initContext:AppContextInterface = {

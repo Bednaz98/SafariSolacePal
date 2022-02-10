@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { appContext } from "./app-context";
+import { appContext, AppContextInterface } from "./app-context";
 import LocalHandlerInterface from "./local-h-interface";
 import Reservation from "./Reservation";
 import { Offering, ServiceRequest } from "./room-service";
@@ -25,12 +25,20 @@ export default class LocalHandler implements LocalHandlerInterface{
     }
 
     getUserOfferings(): Offering[] {
-        const returnArray:Offering[] =this.context.userOfferings;
-        if(returnArray.length >0) {return returnArray}
+        const returnArray:Offering[] = this.context.userOfferings;
+        console.log("🚀 ~ file: localhandler.ts ~ line 29 ~ LocalHandler ~ getUserOfferings ~ returnArray", returnArray)
+        if(returnArray.length > 0) {return returnArray}
         else return []
     }
     setUserOfferings(ServerOfferingData: Offering[]): boolean {
         this.context.setUserOfferings(ServerOfferingData)
         return true
     }
+    deleteUserOffering(index: number): boolean {
+        const deleteContext: Offering[] = this.context.userOfferings
+        const newContext = deleteContext.slice(index, 1)
+        this.context.setUserOfferings(newContext)
+        return (true)
+    }
+
 }
