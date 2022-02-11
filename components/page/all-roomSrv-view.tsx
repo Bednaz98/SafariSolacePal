@@ -35,8 +35,7 @@ export function RoomServiceOfferings() {
   }
 
   function addOffer(props) {
-    
-
+    httpHandle.postServiceRequest(props);
   }
 
   return (
