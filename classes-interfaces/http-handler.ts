@@ -111,6 +111,7 @@ export default class httpHandler implements httphandlerInterface{
         }
     }
 
+    /** The arguement 'request' taken here must be the service request with the requestedOfferings property ALREADY altered */
     async postServiceRequest(request: ServiceRequest): Promise<boolean> {
         try {
             await axios.post(`${this.getURL()}/servicerequests`, request)
