@@ -1,6 +1,7 @@
 import React from 'react'
 import { View,Text } from 'react-native'
 import GetColor, { Color } from './colorstyle'
+import GetStyle from './get-style'
 
 
 
@@ -13,9 +14,7 @@ export default function BasicText(props){
     // is not found, it will default to general text
     const textType:TextType = props?.type ?? TextType.General
     return (
-    <View style={{padding:3}}>
-        <Text style={getTextStyle(textType)}>{text}</Text>
-    </View>)
+    <View style={{padding:3}}><Text style={GetStyle("BasicText")}>{text}</Text></View>)
 }
 
 /**The type */

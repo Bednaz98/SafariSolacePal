@@ -70,8 +70,7 @@ export default function ReservationLogin(props){
     //     }
     // }
     return(
-        <View>
-            <BasicText text={"Welcome To Safari SolaceStyle Resorts"} textType ={TextType.Title}/>
+        <View><BasicText text={"Welcome To Safari SolaceStyle Resorts"} textType ={TextType.Title}/>
             <BasicText text={"Please Enter your Reservation ID"} textType ={TextType.Header}/>
             <BasicInputText value = {reservationID} placeholder={"1234"} onChangeText= {setReservationID} />
             <InvalidWarning />
