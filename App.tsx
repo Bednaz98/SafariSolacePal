@@ -48,7 +48,7 @@ export default function App() {
 
   const [reservation, setReservation] = useState<Reservation>();
   const [serverOfferingList, setServerOfferingList] = useState<Offering[]>();
-  const [userServerOffering, setUserServerOffering] = useState<Offering[]>();
+  const [userServerOffering, setUserServerOffering] = useState<ServiceRequest[]>();
   const [activityList, setActivityList] = useState<Activity[]>();
 
 

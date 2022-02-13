@@ -20,12 +20,12 @@ export interface httphandlerInterface{
     /** Get all room offerings
      * @param id ID of the SERVICE REQUEST. If included as an arguement, this will get offerings for only this user
      */
-    getRoomOfferings(id? : string): Promise< Offering[] >
+    getRoomOfferings(id? : string): Promise< Offering[] | ServiceRequest>
 
     /** get all room service requests available 
      * @param id Optional: Will return only services that the user has requested
     */
-    getRoomServiceRequests(id? : string): Promise< ServiceRequest | ServiceRequest[] >
+    getRoomServiceRequests(id? : string): Promise<ServiceRequest[] >
 
     /** Create or delete a service request for this user */
     postServiceRequest(request: ServiceRequest): Promise<boolean>
@@ -59,11 +59,9 @@ export default class httpHandler implements httphandlerInterface{
 
     /** get a reservation by ID */
     async getReservations(id: string){
-        const response = await axios.get(`${this.getURL()}/reservations/:${id}`);
+        const reserveUrl = `https://319a8c0f-ef79-4712-9143-a05d5c7a379c.mock.pstmn.io`
+        const response = await axios.get(`${reserveUrl}/reservations/:${id}`);
         const data: Reservation = response.data; //doing this will not actually enforce a type. The actual response type could be different
-        const fullResponse = response 
-        console.log("🚀 ~ file: http-handler.ts ~ line 63 ~ httpHandler ~ getReservations ~ data", data)
-        console.log("🚀 ~ file: http-handler.ts ~ line 64 ~ httpHandler ~ getReservations ~ altData", fullResponse)               
         return data;
     }
 
@@ -81,34 +79,18 @@ export default class httpHandler implements httphandlerInterface{
         }
     }
 
-    async getRoomOfferings(id? : string): Promise<Offering[]> {
-        if (id){
-            const serviceRequest = await this.getRoomServiceRequests('servicebyid')
-            const offerings = serviceRequest as ServiceRequest
-            console.log("🚀 ~ file: http-handler.ts ~ line 88 ~ httpHandler ~ getRoomOfferings ~ offerings", offerings.requestedOffering)
-
-            return offerings.requestedOffering
-        }
-        else{
-            const response = await axios.get(`${this.getURL()}/offerings`)
-            const offerings = response.data as Offering[]
-            return offerings
-        } 
+    async getRoomOfferings(): Promise<Offering[]> {
+        const response = await axios.get(`http://20.124.74.192:3000/offerings`)
+        const data = response.data as Offering[]
+        console.log("adfipuabsf", data)
+        return data;
     }
 
-    async getRoomServiceRequests(id? : string): Promise< ServiceRequest | ServiceRequest[] > {
+    async getRoomServiceRequests(id : string): Promise< ServiceRequest[]> {
         let response: any
-        if (id) {
             response = await axios.get(`${this.getURL()}/servicerequests/:${id}`)
-            console.log("🚀 ~ file: http-handler.ts ~ line 103 ~ httpHandler ~ getRoomServiceRequests ~ response", response)
-            const data = response.data as ServiceRequest; 
-            return data;
-        } 
-        else {
-            response = await axios.get(`${this.getURL()}/servicerequests`) 
-            const data = response.data as ServiceRequest[]; 
-            return data;
-        }
+            let data = response.data as ServiceRequest[]
+            return data
     }
 
     /** The arguement 'request' taken here must be the service request with the requestedOfferings property ALREADY altered */
@@ -122,24 +104,26 @@ export default class httpHandler implements httphandlerInterface{
 
     async cancelServiceRequest(request: ServiceRequest): Promise<any> {
         //fetcher...
-        await axios.post(`${this.getURL()}/servicerequests`, request)
-        const response = 'derp'
-        this.localHandler.setUserOfferings(await this.getRoomOfferings('must_be_unique'))
+        const response = await axios.patch(`${this.getURL()}/servicerequests`, request)
+        const data = response.data 
+        this.localHandler.setUserOfferings(data)
         return (response)
     }
 
+
     async syncApp(id:string){
         //get-n-set
-        this.localHandler.setLocalReservation(await this.getReservations(id))
-        //const reservation = await this.getReservations(id)
-        //const activity = await this.getActivities()
-        //const reservation = await this.getReservations(id)
-        //const roomOfferings = await this.getRoomOfferings('must_be_unique')
-        //console.log("🚀 ~ file: http-handler.ts ~ line 134 ~ httpHandler ~ syncApp ~ roomOfferings", roomOfferings)
-        this.localHandler.setLocalOfferings(await this.getRoomOfferings())
-        this.localHandler.setUserOfferings(await this.getRoomOfferings('must_be_unique'))
-        //this.context.setPage(1)
-        //console.log('wait')
+        const reservation= await this.getReservations(id);
+        //await oferings
+        //await room service requests []
+        //set states
+        const serverOfferings= await this.getRoomOfferings()
+        const serverServiceRequests= await this.getRoomServiceRequests(id)
+        if(Boolean(reservation) && Boolean(serverOfferings) && Boolean(serverServiceRequests)){
+            this.localHandler.setLocalReservation(reservation)
+            this.localHandler.setLocalOfferings(serverOfferings)
+            this.localHandler.setUserOfferings(serverServiceRequests)
+        }
         return (true)
     }
 } 

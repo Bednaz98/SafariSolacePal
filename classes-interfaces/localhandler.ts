@@ -24,13 +24,12 @@ export default class LocalHandler implements LocalHandlerInterface{
         return true
     }
 
-    getUserOfferings(): Offering[] {
-        const returnArray:Offering[] = this.context.userOfferings;
-        console.log("🚀 ~ file: localhandler.ts ~ line 29 ~ LocalHandler ~ getUserOfferings ~ returnArray", returnArray)
-        if(returnArray.length > 0) {return returnArray}
+    getUserOfferings(): ServiceRequest[] {
+        const returnArray:ServiceRequest[] = this.context.userOfferings;
+        if(returnArray != null ) {return returnArray}
         else return []
     }
-    setUserOfferings(ServerOfferingData: Offering[]): boolean {
+    setUserOfferings(ServerOfferingData: ServiceRequest[]): boolean {
         this.context.setUserOfferings(ServerOfferingData)
         return true
     }

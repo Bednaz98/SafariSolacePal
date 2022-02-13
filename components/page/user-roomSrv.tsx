@@ -1,5 +1,5 @@
 ///shows all the orders for a room
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FlatList } from "react-native";
 import { View } from "react-native";
 import BasicButton from "../../SafariSolaceStyleTools/basicbutton";
@@ -8,15 +8,21 @@ import v4 from "uuid/v4";
 import { Offering, ServiceRequest } from "../../classes-interfaces/room-service";
 import localhandler from "../../classes-interfaces/localhandler";
 import httpHandler from "../../classes-interfaces/http-handler";
+import { appContext } from "../../classes-interfaces/app-context";
 
 export function UserRoomServiceOrder() {
     const httpHandle = new httpHandler(true);
     const localHandle = new localhandler()
-
+    const context = useContext(appContext);
+    
     const userOfferings = localHandle.getUserOfferings()
     console.log("🚀 ~ file: user-roomSrv.tsx ~ line 16 ~ UserRoomServiceOrder ~ userOfferings", userOfferings)
 
-    const [orders, setOrders] = useState(userOfferings);
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+      setOrders(userOfferings)
+    }),[]
 
   function testArr(){
     let arr1 = [];
@@ -30,8 +36,9 @@ export function UserRoomServiceOrder() {
     return arr1;
   }
 
-  function remove(props) {
-    localHandle.deleteUserOffering(props);
+  async function remove(props) {
+    await httpHandle.cancelServiceRequest(props)
+    await httpHandle.syncApp(context.room)
 
   }
 
@@ -41,12 +48,12 @@ export function UserRoomServiceOrder() {
       <FlatList
         data={orders}
         keyExtractor={(item) => v4()}
-        renderItem={({ item, index }) => {
+        renderItem={({ item }) => {
           return (
             <View>
               <BasicText text={item.desc ?? "Example"} />
               <BasicText text={"$" + item.cost} />
-              <BasicButton onPress={remove(index)} title={"Remove"} />
+              <BasicButton onPress={() => remove(item)} title={"Remove"} />
             </View>
           );
         }}
