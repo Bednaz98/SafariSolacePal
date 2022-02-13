@@ -1,4 +1,5 @@
 node_modules/
+developer-styling-tools/
 .expo/
 dist/
 npm-debug.*
