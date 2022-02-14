@@ -48,6 +48,7 @@ export default class httpHandler implements httphandlerInterface{
     private getURL(){
         if(this.devMode){ return this.mockURL} //postman mock
         else {return   this.mockURL} 
+
     }
 
     //constructor

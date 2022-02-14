@@ -1,18 +1,69 @@
 import React, { useState } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import BasicButton from "../../SafariSolaceStyleTools/basicbutton";
 import BasicInputText from "../../SafariSolaceStyleTools/basicinputtext";
 import BasicText, { TextType } from "../../SafariSolaceStyleTools/basictext";
 import PixelSpacer from "../../SafariSolaceStyleTools/pixel-spacer";
+import * as DocumentPicker from 'expo-document-picker';
+import Problem from "../../classes-interfaces/problem";
+
+
 
 
 
 export default function ProblemReport(){
-    const [viewState, setViewState] = useState(false);
 
-    function submitReport(){
+    const [viewState, setViewState] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
+
+
+    async function selectFile(){
+        const pickerResult: DocumentPicker.DocumentResult = await DocumentPicker.getDocumentAsync();
+        if(pickerResult.type !== 'cancel'){
+            setSelectedFile(pickerResult);
+        }
+    }
+    
+    async function submitReport(desc: string){
+
+        const problem: Problem = {
+            id: "",
+            submittedTime: 0,
+            desc: desc,
+            status: "Unreviewed",
+        }
+
         try {
-            // handler catch here
+            if(selectedFile){
+                const formData = new FormData();
+                formData.append('myFile', JSON.parse(JSON.stringify({
+                    name: selectedFile.name,
+                    uri: selectedFile.uri,
+                    type: selectedFile.mimeType
+                })))
+                const response = await fetch('http://8f75-209-159-236-212.ngrok.io/upload', {
+                    method: 'POST',
+                    body: formData,
+                })
+                problem.photoLink = await response.text();
+                setSelectedFile(null);
+            }
+
+            const response = await fetch('https://safarisolaceproblem.azurewebsites.net/api/ProblemIngestion?', {
+                method: 'POST',
+                body: JSON.stringify(problem),
+                headers: {
+                    'content-type':"application/json"
+                }
+            })
+
+            if(response.status === 200){
+                alert("Problem Submitted Successfully");
+            } else {
+                alert("THERE WAS AN ERROR SUBMITTING PROBLEM!")
+            }
+
+
         } catch (error) {
             // probably just ignore this and let the user think everything worked
         }
@@ -20,18 +71,18 @@ export default function ProblemReport(){
     }
 
     function SubmissionForm(){
-        const [problemTitle, setProblemTitle] = useState('');
         const [problemDescription, setProblemDescription] = useState('');
+
         return(
             <View>
                 <PixelSpacer width={400}/>
                 <BasicText text={"Submit a Problem"} textType = {TextType.Title}/>
                 <PixelSpacer height={5}/>
-                <BasicInputText  value ={problemTitle} onChangeText={setProblemTitle} placeholder={'problem title'}/>
+                <BasicInputText  value ={problemDescription} onChangeText={setProblemDescription} placeholder={'Problem description'}/>
                 <PixelSpacer height={5}/>
-                <BasicInputText  value ={problemDescription} onChangeText={setProblemDescription} placeholder={'problem description'}/>
-                <PixelSpacer height={5}/>
-                <BasicButton onPress={()=>{submitReport()}} title={'Submit form'} />
+                {!selectedFile ? <BasicButton onPress={selectFile} title={'Attach Image'}/> : <BasicButton onPress={()=>{setSelectedFile(null)}} title={'Un-Attach Image'}/>}
+                {/* {selectedFile ?? <BasicText text={`Selected File: ${selectedFile.name}`}/>} */}
+                <BasicButton onPress={()=>{submitReport(problemDescription)}} title={'Submit form'} />
             </View>)
     }
 

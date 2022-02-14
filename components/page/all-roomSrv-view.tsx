@@ -52,6 +52,7 @@ export function RoomServiceOfferings() {
     console.log("hello",serviceRequest)
     httpHandle.postServiceRequest(serviceRequest)
 
+
   }
 
   return (
