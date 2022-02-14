@@ -33,8 +33,6 @@ export default function ReservationLogin(props){
 
             await HTTP.syncApp(reservationID)
             context.setPage(1)
-
-            console.log("context reservation data in login-page is ", context.reservationData )
             //Set context State Here ...
             //switch page ...
         } catch (error) {
@@ -50,7 +48,7 @@ export default function ReservationLogin(props){
 
     function InvalidWarning(){
         return <><TryLoginButton/></>
-        if(!firstTry){ return <> <TryLoginButton/></>}
+        if(!firstTry){ return <><TryLoginButton/></>}
         else if(!showError && reservationCheck()){ return <><TryLoginButton/></>}
         else{return <><BasicText text={"You may have entered an invalid URL, if not please contact a manager"}/> </>}
     }

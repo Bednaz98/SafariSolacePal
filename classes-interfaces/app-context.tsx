@@ -12,8 +12,8 @@ export interface AppContextInterface{
     setReservationData:React.Dispatch<React.SetStateAction<Reservation>>
     serverOfferings:Offering[]
     setServerOfferings:React.Dispatch<React.SetStateAction<Offering[]>>
-    userOfferings:Offering[]
-    setUserOfferings:React.Dispatch<React.SetStateAction<Offering[]>>
+    userOfferings:ServiceRequest[]
+    setUserOfferings:React.Dispatch<React.SetStateAction<ServiceRequest[]>>
     availableActivities:Activity[]
     setAvailableActivities:React.Dispatch<React.SetStateAction<Activity[]>>
 }

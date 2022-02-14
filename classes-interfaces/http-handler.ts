@@ -20,12 +20,12 @@ export interface httphandlerInterface{
     /** Get all room offerings
      * @param id ID of the SERVICE REQUEST. If included as an arguement, this will get offerings for only this user
      */
-    getRoomOfferings(id? : string): Promise< Offering[] >
+    getRoomOfferings(id? : string): Promise< Offering[] | ServiceRequest>
 
     /** get all room service requests available 
      * @param id Optional: Will return only services that the user has requested
     */
-    getRoomServiceRequests(id? : string): Promise< ServiceRequest | ServiceRequest[] >
+    getRoomServiceRequests(id? : string): Promise<ServiceRequest | ServiceRequest[] >
 
     /** Create or delete a service request for this user */
     postServiceRequest(request: ServiceRequest): Promise<boolean>
@@ -41,6 +41,7 @@ export default class httpHandler implements httphandlerInterface{
 
     /////////////////////////////////////////////
     private useURL:string = "http://20.124.74.192:3000";
+    private mockURL: string = "https://319a8c0f-ef79-4712-9143-a05d5c7a379c.mock.pstmn.io"
     private devMode:boolean;
     private localHandler: LocalHandlerInterface = new LocalHandler();
 
@@ -66,9 +67,6 @@ export default class httpHandler implements httphandlerInterface{
     async getReservations(id: string){
         const response = await axios.get(`${this.getURL()}/reservations/:${id}`);
         const data: Reservation = response.data; //doing this will not actually enforce a type. The actual response type could be different
-        const fullResponse = response 
-        //console.log("🚀 ~ file: http-handler.ts ~ line 63 ~ httpHandler ~ getReservations ~ data", data)
-        //console.log("🚀 ~ file: http-handler.ts ~ line 64 ~ httpHandler ~ getReservations ~ altData", fullResponse)               
         return data;
     }
 
@@ -101,7 +99,7 @@ export default class httpHandler implements httphandlerInterface{
         } 
     }
 
-    async getRoomServiceRequests(id? : string): Promise< ServiceRequest | ServiceRequest[] > {
+    async getRoomServiceRequests(id : string): Promise< ServiceRequest | ServiceRequest[]> {
         let response: any
         if (id) {
             response = await axios.get(`${this.getURL()}/servicerequests/:${id}`)
@@ -127,11 +125,12 @@ export default class httpHandler implements httphandlerInterface{
 
     async cancelServiceRequest(request: ServiceRequest): Promise<any> {
         //fetcher...
-        await axios.post(`${this.getURL()}/servicerequests`, request)
-        const response = 'derp'
-        this.localHandler.setUserOfferings(await this.getRoomOfferings('must_be_unique'))
+        const response = await axios.patch(`${this.getURL()}/servicerequests`, request)
+        const data = response.data 
+        this.localHandler.setUserOfferings(data)
         return (response)
     }
+
 
     async syncApp(id:string){
         //get-n-set

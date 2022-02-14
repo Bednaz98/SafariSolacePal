@@ -45,7 +45,6 @@ export default function ReservationHomePage(){
                 <BasicText style={GetStyle("BasicText")}text={(context.reservationData.id ?? 'N/A')}/>
             </>)
     }
-
     return(
     <View style={GetStyle("ReservationInfoView")}>
         <GetRoomName />

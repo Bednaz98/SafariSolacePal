@@ -13,9 +13,17 @@ export default function BasicText(props){
     //This will grab from the props the type of text for styling
     // is not found, it will default to general text
     const textType:TextType = props?.type ?? TextType.General
+    let textColor = Color.Text
+    // switch(textType){
+    //     case TextType.General:{textColor =Color.Text ;   ;break }
+    //     case TextType.Header:{textColor =Color.textHeader;  ; break}
+    //     case TextType.Title:{textColor =Color.textTitle ; ;break}
+    // }
     return (
     <Text style={props.style}>{text}</Text>)
 }
+
+
 
 /**The type */
 export enum TextType{
@@ -25,11 +33,11 @@ export enum TextType{
 }
 function getTextStyle(textType:TextType){
     switch(textType){
-    case TextType.Title  :  {return {color:GetColor(Color.Text), fontSize:70}}
-    case TextType.Header :  {return {color:GetColor(Color.Text), fontSize:50}}
+    case TextType.Title  :  {return { fontSize:70}}
+    case TextType.Header :  {return {fontSize:40}}
+    case TextType.Header :  {return {fontSize:20}}
     // The default case should be exactly the same as the general text as an edge case
-    case TextType.General:  {return {color:GetColor(Color.Text), fontSize:20}}
-    default              :  {return {color:GetColor(Color.Text), fontSize:20}}
+    default              :  {return {fontSize:20}}
     //=================================================================================
     }
 }

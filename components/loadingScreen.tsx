@@ -7,20 +7,8 @@ import BasicText from "../SafariSolaceStyleTools/basictext";
 
 
 export default function LoadingScreen(){
-    //const context = useContext(appContext);
-    // useEffect(() => {
-    //   context.setPage(1)
-    
-    // //   return () => {
-
-    // //   };
-    // }, [context.]);
-    
-
     return(
         <View>
-            <BasicText text={'Connecting to Server'}/>
-            <ActivityIndicator/>
-        </View>
-    )
+            <BasicText text={'Connecting to Server'}/><ActivityIndicator/>
+        </View>)
 }
