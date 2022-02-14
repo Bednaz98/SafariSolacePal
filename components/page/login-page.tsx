@@ -46,8 +46,8 @@ export default function ReservationLogin(props){
     }
 
     function InvalidWarning(){
-        return <> <TryLoginButton/></>
-        if(!firstTry){ return <> <TryLoginButton/></>}
+        return <><TryLoginButton/></>
+        if(!firstTry){ return <><TryLoginButton/></>}
         else if(!showError && reservationCheck()){ return <><TryLoginButton/></>}
         else{return <><BasicText text={"You may have entered an invalid URL, if not please contact a manager"}/> </>}
     }
@@ -68,11 +68,10 @@ export default function ReservationLogin(props){
     //     }
     // }
     return(
-        <View>
-            <BasicText text={"Welcome To Safari SolaceStyle Resorts"} textType ={TextType.Title}/>
-            <BasicText text={"Please Enter your Reservation ID"} textType ={TextType.Header}/>
-            <BasicInputText value = {reservationID} placeholder={"1234"} onChangeText= {setReservationID} />
-            <InvalidWarning />
+        <View><BasicText text={"Welcome To Safari SolaceStyle Resorts"} textType ={TextType.Title}/>
+        <BasicText text={"Please Enter your Reservation ID"} textType ={TextType.Header}/>
+        <BasicInputText value = {reservationID} placeholder={"1234"} onChangeText= {setReservationID}/>
+        <InvalidWarning/>
         </View>
     )
 }

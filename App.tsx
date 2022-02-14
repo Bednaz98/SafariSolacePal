@@ -3,9 +3,7 @@ import React, { useState } from 'react';
 import { StatusBar, StyleSheet, Text, View, Image } from 'react-native';
 import { appContext, AppContextInterface } from './classes-interfaces/app-context';
 import ProblemReport from './components/page/problem-report';
-import { Theme } from './SafariSolaceStyleTools/colorstyle';
 import { themeContext, ThemeContextInterface } from './SafariSolaceStyleTools/themecontext';
-import ReservationLogin from './components/page/login-page'
 import ReservationHomePage from './components/page/reservation-homepage';
 import NavBar from './components/children/nav-bar';
 import ActivityView from './components/page/activity-view';
@@ -15,11 +13,13 @@ import { RoomServiceOfferings } from './components/page/all-roomSrv-view';
 import { UserRoomServiceOrder } from './components/page/user-roomSrv';
 import LoadingScreen from './components/loadingScreen';
 import { Activity } from './classes-interfaces/activity';
-import PixelSpacer from './SafariSolaceStyleTools/pixel-spacer';
+import { Theme } from './SafariSolaceStyleTools/styleconfig';
+import ReservationLogin from './components/page/login-page';
+
 
 
 export default function App() {
-  const [theme, setTheme] = useState(Theme.default);
+  const [statetheme, setTheme] = useState(Theme.default);
   const [pageIndex, setPageIndex] = useState(0);
 
 
@@ -64,7 +64,7 @@ export default function App() {
     setAvailableActivities: setActivityList,
     setPage:setPageIndex
   }
-  const themeContextObject:ThemeContextInterface = {theme:theme,setTheme:setTheme}
+  const themeContextObject:ThemeContextInterface = {theme:statetheme,setTheme:setTheme}
 
   function ShowNavBar(){
     return <NavBar navFunc={setPageIndex}/>
@@ -73,13 +73,13 @@ export default function App() {
 
   function SwitchPage(){
     switch(pageIndex){
-      case                              0:{return (<ReservationLogin setPageIndex = {setPageIndex}/>)}
-      case /*Home page*/                1:{return (<>< ShowNavBar/><ReservationHomePage/> </>)}
-      case /*All Events*/               2:{return (<>< ShowNavBar/><UserRoomServiceOrder/></> )}
-      case /*All Room Service*/         3:{return (<>< ShowNavBar/><RoomServiceOfferings/></> ) }
-      case /*All Events*/               4:{return (<>< ShowNavBar/><ActivityView/></> )}
-      case /*Problem Report*/           5:{return (<>< ShowNavBar/><ProblemReport/></>)} 
-      default :                           {return <LoadingScreen/>}
+      case                              0:{return(<ReservationLogin setPageIndex={setPageIndex}/>)}
+      case /*Home page*/                1:{return(<><ShowNavBar/><ReservationHomePage/></>)}
+      case /*All Events*/               2:{return(<><ShowNavBar/><UserRoomServiceOrder/></>)}
+      case /*All Room Service*/         3:{return(<><ShowNavBar/><RoomServiceOfferings/></>)}
+      case /*All Events*/               4:{return(<><ShowNavBar/><ActivityView/></>)}
+      case /*Problem Report*/           5:{return(<><ShowNavBar/><ProblemReport/></>)}
+      default :                           {return<LoadingScreen/>}
     }
   }
 
@@ -87,7 +87,7 @@ export default function App() {
     <View style={styles.container}>
       <appContext.Provider value = {initContext}>
         <themeContext.Provider value = { themeContextObject }>
-        <Image style={{height:64*2, width:64*2, margin:10}} source={ require('./assets/Sale.png') } />
+        <Image style={{height:64*2,width:64*2,margin:10}} source={ require('./assets/Sale.png') }/>
           <SwitchPage/>
         </themeContext.Provider>
       </appContext.Provider>

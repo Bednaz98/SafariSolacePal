@@ -44,10 +44,9 @@ export default function ReservationHomePage(){
                 <BasicText text={(context.reservationData.id ?? 'N/A')}/>
             </View>)
     }
-
     return(
     <View>
-        <GetRoomName />
+        <GetRoomName/>
         <GetReservationID/>
         <GetCheckingInTime/>
         <GetCheckingOutTime/>

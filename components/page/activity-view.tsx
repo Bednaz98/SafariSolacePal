@@ -33,7 +33,6 @@ export default function ActivityView(){
 
     return(<View>
         <BasicText text={'Available Activities'}/>
-
         <ScrollView>
                 {activityItems}
         </ScrollView>

@@ -81,7 +81,6 @@ export default function ProblemReport(){
                 <BasicInputText  value ={problemDescription} onChangeText={setProblemDescription} placeholder={'Problem description'}/>
                 <PixelSpacer height={5}/>
                 {!selectedFile ? <BasicButton onPress={selectFile} title={'Attach Image'}/> : <BasicButton onPress={()=>{setSelectedFile(null)}} title={'Un-Attach Image'}/>}
-                {/* {selectedFile ?? <BasicText text={`Selected File: ${selectedFile.name}`}/>} */}
                 <BasicButton onPress={()=>{submitReport(problemDescription)}} title={'Submit form'} />
             </View>)
     }
