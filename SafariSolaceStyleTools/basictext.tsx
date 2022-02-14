@@ -1,6 +1,9 @@
 import React from 'react'
 import { View,Text } from 'react-native'
-import GetColor, { Color } from './styleconfig'
+import GetColor, { Color } from './colorstyle'
+import GetStyle from './get-style'
+
+
 
 
 /** the only required prop, @attribute 'text', optionally @Attribute'textType' of type 'TextType' can be included for specifying extra styling options*/
@@ -11,15 +14,13 @@ export default function BasicText(props){
     // is not found, it will default to general text
     const textType:TextType = props?.type ?? TextType.General
     let textColor = Color.Text
-    switch(textType){
-        case TextType.General:{textColor =Color.Text ;   ;break }
-        case TextType.Header:{textColor =Color.textHeader;  ; break}
-        case TextType.Title:{textColor =Color.textTitle ; ;break}
-    }
+    // switch(textType){
+    //     case TextType.General:{textColor =Color.Text ;   ;break }
+    //     case TextType.Header:{textColor =Color.textHeader;  ; break}
+    //     case TextType.Title:{textColor =Color.textTitle ; ;break}
+    // }
     return (
-    <View style={{margin:5}}>
-        <Text style={[{color:GetColor(textColor)}, getTextStyle(textType)]}>{text}</Text>
-    </View>)
+    <Text style={props.style}>{text}</Text>)
 }
 
 

@@ -1,14 +1,14 @@
 //shows all the orders for a room
+
+import { FlatList, View } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
-import { FlatList } from "react-native";
-import { View } from "react-native";
 import httpHandler from "../../classes-interfaces/http-handler";
-import LocalHandler from "../../classes-interfaces/localhandler";
 import BasicButton from "../../SafariSolaceStyleTools/basicbutton";
 import BasicText from "../../SafariSolaceStyleTools/basictext";
 import v4 from "uuid/v4";
 import { Offering, ServiceRequest } from "../../classes-interfaces/room-service";
 import localhandler from "../../classes-interfaces/localhandler";
+import GetStyle from "../../SafariSolaceStyleTools/get-style";
 import { appContext } from "../../classes-interfaces/app-context";
 
 export function RoomServiceOfferings() {
@@ -25,8 +25,6 @@ export function RoomServiceOfferings() {
   useEffect(() => {
     console.log('offerings display')
     setOrders(localhandle.getLocalOfferings());
-    
-    //setOrders(testArr());
   }, []);
 
   function testArr(){
@@ -41,35 +39,45 @@ export function RoomServiceOfferings() {
     return arr1;
   }
 
-  function addOffer(props:Offering) {
-    const serviceRequest: ServiceRequest = {
-      id: v4(),
-      room: context.room,
-      created: (new Date()).getSeconds(),
-      status: "Ordered",
-      requestedOffering: [props],
-    }
-    console.log("hello",serviceRequest)
-    httpHandle.postServiceRequest(serviceRequest)
+  function addOffer(item) {
+    //httpHandle.postServiceRequest(props);
+    const currentRequests = localhandle.getUserOfferings()
+    currentRequests.push(item)
+    localhandle.setUserOfferings(currentRequests)
+//   function addOffer(props:Offering) {
+//     const serviceRequest: ServiceRequest = {
+//       id: v4(),
+//       room: context.room,
+//       created: (new Date()).getSeconds(),
+//       status: "Ordered",
+//       requestedOffering: [props],
+//     }
+//     console.log("hello",serviceRequest)
+//     httpHandle.postServiceRequest(serviceRequest)
 
 
   }
 
+  const style = GetStyle("OfferingsText")
   return (
-    <View>
-      <BasicText text={"All Room Service Offerings"} />
-      <FlatList
-        data={orders}
-        keyExtractor={(item) => v4()}
-        renderItem={({ item }) => {
-          return (
-            <View>
-              <View style={{flexDirection:"row"}}><BasicText text={item.desc} /><BasicText text={"$" + item.cost} /></View>
-              <BasicButton onPress={()=>addOffer(item)} title={"Add"} />
-            </View>
-          );
-        }}
-      />
-    </View>
+    <>
+      <BasicText style={GetStyle("TitleText")}  text={"All Room Service Offerings"} />
+      <View style={GetStyle("FlatlistView")}>
+          <FlatList
+            data={orders}
+            keyExtractor={(item) => v4()}
+            renderItem={({ item }) => {
+              return (
+                <>
+                  <BasicText style={style} text={item.desc} />
+                  <BasicText style={style} text={"$" + item.cost} />
+    
+                  <View style={{flex:1, width: '60%',alignSelf:'center'}}><BasicButton onPress={()=>addOffer(item)} title={"Add"} /></View>
+                </>
+              );
+            }}
+          />
+      </View>
+    </>
   );
 }

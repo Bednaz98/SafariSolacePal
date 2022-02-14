@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { StatusBar, StyleSheet, Text, View, Image } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { appContext, AppContextInterface } from './classes-interfaces/app-context';
 import ProblemReport from './components/page/problem-report';
 import { themeContext, ThemeContextInterface } from './SafariSolaceStyleTools/themecontext';
@@ -13,6 +13,7 @@ import { RoomServiceOfferings } from './components/page/all-roomSrv-view';
 import { UserRoomServiceOrder } from './components/page/user-roomSrv';
 import LoadingScreen from './components/loadingScreen';
 import { Activity } from './classes-interfaces/activity';
+import GetStyle from './SafariSolaceStyleTools/get-style';
 import { Theme } from './SafariSolaceStyleTools/styleconfig';
 import ReservationLogin from './components/page/login-page';
 
@@ -23,14 +24,14 @@ export default function App() {
   const [pageIndex, setPageIndex] = useState(0);
 
 
-//   // dummy values
-//   const dummyReservation:Reservation={
-//     id: '',
-//     checkIn: 0,
-//     checkOut: 0,
-//     owner: '',
-//     room: ''
-//   }
+  // dummy values
+  const dummyReservation:Reservation={
+    id: 'dude',
+    checkIn: 0,
+    checkOut: 0,
+    owner: 'me',
+    room: '404'
+  }
 
 // const dummyOffering1:Offering[] =[]
 //   const dummyOffering2:ServiceRequest={
@@ -47,7 +48,7 @@ export default function App() {
 //     cost: 12
 // }]
 
-  const [reservation, setReservation] = useState<Reservation>();
+  const [reservation, setReservation] = useState<Reservation>(dummyReservation);
   const [serverOfferingList, setServerOfferingList] = useState<Offering[]>();
   const [userServerOffering, setUserServerOffering] = useState<ServiceRequest[]>();
   const [activityList, setActivityList] = useState<Activity[]>();
@@ -83,11 +84,14 @@ export default function App() {
     }
   }
 
+  const HeightScale = Dimensions.get('window').height
+  console.log("🚀 ~ file: RealApp.tsx ~ line 87 ~ RealApp ~ HeightScale", HeightScale)
+  const WidthScale = Dimensions.get('window').width
+  console.log("🚀 ~ file: RealApp.tsx ~ line 89 ~ RealApp ~ WidthScale", WidthScale)
   return (
-    <View style={styles.container}>
+    <View style={{width:'100%',height:'100%',justifyContent:"center", alignSelf:"center", backgroundColor:'black'}}>
       <appContext.Provider value = {initContext}>
         <themeContext.Provider value = { themeContextObject }>
-        <Image style={{height:64*2,width:64*2,margin:10}} source={ require('./assets/Sale.png') }/>
           <SwitchPage/>
         </themeContext.Provider>
       </appContext.Provider>
@@ -96,11 +100,11 @@ export default function App() {
 }
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#999',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#999',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });

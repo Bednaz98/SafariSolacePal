@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, Image } from "react-native";
 import BasicText, { TextType } from '../../SafariSolaceStyleTools/basictext'
 import BasicInputText from '../../SafariSolaceStyleTools/basicinputtext'
 import BasicButton from '../../SafariSolaceStyleTools/basicbutton'
@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import httpHandler, { httphandlerInterface } from "../../classes-interfaces/http-handler";
 import LoadingScreen from "../loadingScreen";
 import { appContext, AppContextInterface } from "../../classes-interfaces/app-context";
+import GetStyle from "../../SafariSolaceStyleTools/get-style";
 
 
 export default function ReservationLogin(props){
@@ -42,7 +43,7 @@ export default function ReservationLogin(props){
     }
 
     function TryLoginButton(){
-        return(<BasicButton title={"Login with Reservation"} onPress={tryLoginHTTP}/>)
+        return(<View style={GetStyle("LoginButtonView")}><BasicButton title={"Login with Reservation"} onPress={tryLoginHTTP}/></View>)
     }
 
     function InvalidWarning(){
@@ -68,10 +69,13 @@ export default function ReservationLogin(props){
     //     }
     // }
     return(
-        <View><BasicText text={"Welcome To Safari SolaceStyle Resorts"} textType ={TextType.Title}/>
-        <BasicText text={"Please Enter your Reservation ID"} textType ={TextType.Header}/>
-        <BasicInputText value = {reservationID} placeholder={"1234"} onChangeText= {setReservationID}/>
-        <InvalidWarning/>
+        
+        <View style={GetStyle('MainView')}>
+            <Image style={{height:64*2,width:64*2, margin:10, alignSelf:'center'}} source={ require('../../assets/Sale.png') }/>
+            <BasicText style={GetStyle("TitleText")} text={"Welcome To Safari Solace Resorts"} />
+            {/* <BasicText style={GetStyle("TitleText")} text={"Please Enter your Reservation ID"} /> */}
+            <BasicInputText style={GetStyle("BasicInputText")} value = {reservationID} placeholder={"Your ID"} onChangeText= {setReservationID} />
+            <InvalidWarning/>
         </View>
     )
 }

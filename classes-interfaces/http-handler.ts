@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { appContext } from "./app-context";
+import { appContext, AppContextInterface } from "./app-context";
 import LocalHandlerInterface from "./local-h-interface";
 import LocalHandler from "./localhandler";
 import axios from "axios"
@@ -25,7 +25,7 @@ export interface httphandlerInterface{
     /** get all room service requests available 
      * @param id Optional: Will return only services that the user has requested
     */
-    getRoomServiceRequests(id? : string): Promise<ServiceRequest >
+    getRoomServiceRequests(id? : string): Promise<ServiceRequest | ServiceRequest[] >
 
     /** Create or delete a service request for this user */
     postServiceRequest(request: ServiceRequest): Promise<boolean>
@@ -35,6 +35,8 @@ export interface httphandlerInterface{
     syncApp(id:string) : Promise<boolean>
 }
 
+//const context: AppContextInterface = useContext(appContext)
+
 export default class httpHandler implements httphandlerInterface{
 
     /////////////////////////////////////////////
@@ -42,19 +44,21 @@ export default class httpHandler implements httphandlerInterface{
     private mockURL: string = "https://319a8c0f-ef79-4712-9143-a05d5c7a379c.mock.pstmn.io"
     private devMode:boolean;
     private localHandler: LocalHandlerInterface = new LocalHandler();
+
     
     /**this function returns the URL to work with, if devMod is set to false, 
     * it will return the production URL, if true, it will return 'http//localhost:[port]'*/
     private getURL(){
-        if(this.devMode){ return this.mockURL} //postman mock
-        else {return   this.mockURL} 
-
+        if(this.devMode){ return `https://319a8c0f-ef79-4712-9143-a05d5c7a379c.mock.pstmn.io`} //postman mock
+        else {return  this.useURL} 
     }
+
+    //https://c694890a-a61f-4a7d-b7d5-10d29c28c10c.mock.pstmn.io old postman
 
     //constructor
     constructor(dev:boolean){
         this.devMode=dev;
-        console.log("🚀 ~ file: http-handler.ts ~ line 56 ~ httpHandler ~ constructor ~ this.devMode", this.devMode)
+        //console.log("🚀 ~ file: http-handler.ts ~ line 56 ~ httpHandler ~ constructor ~ this.devMode", this.devMode)
         
     }
     //////////////////////////////////////////////
@@ -80,19 +84,34 @@ export default class httpHandler implements httphandlerInterface{
         }
     }
 
-    async getRoomOfferings(): Promise<Offering[]> {
-        const response = await axios.get(`${this.getURL()}/offerings`)
-        const data = response.data as Offering[]
-        console.log("adfipuabsf", data)
-        return data;
+    async getRoomOfferings(id? : string): Promise<Offering[]> {
+        if (id){
+            const serviceRequest = await this.getRoomServiceRequests(id)
+            const offerings = serviceRequest as ServiceRequest
+            //console.log("🚀 ~ file: http-handler.ts ~ line 88 ~ httpHandler ~ getRoomOfferings ~ offerings", offerings.requestedOffering)
+
+            return offerings.requestedOffering
+        }
+        else{
+            const response = await axios.get(`${this.getURL()}/offerings`)
+            const offerings = response.data as Offering[]
+            return offerings
+        } 
     }
 
-    async getRoomServiceRequests(id : string): Promise< ServiceRequest> {
+    async getRoomServiceRequests(id : string): Promise< ServiceRequest | ServiceRequest[]> {
         let response: any
-            response = (await axios.get(`${this.getURL()}/servicerequests/${id}`)).data
-            console.log('reseervation data', response)
-            let data = response  as ServiceRequest
-            return data
+        if (id) {
+            response = await axios.get(`${this.getURL()}/servicerequests/:${id}`)
+            //console.log("🚀 ~ file: http-handler.ts ~ line 103 ~ httpHandler ~ getRoomServiceRequests ~ response", response)
+            const data = response.data as ServiceRequest; 
+            return data;
+        } 
+        else {
+            response = await axios.get(`${this.getURL()}/servicerequests`) 
+            const data = response.data as ServiceRequest[]; 
+            return data;
+        }
     }
 
     /** The arguement 'request' taken here must be the service request with the requestedOfferings property ALREADY altered */
@@ -115,24 +134,12 @@ export default class httpHandler implements httphandlerInterface{
 
     async syncApp(id:string){
         //get-n-set
-        const reservation= await this.getReservations(id);
-        const serverServiceRequests= await this.getRoomServiceRequests(reservation.room)
-        const serverOfferings= await this.getRoomOfferings()
-
-        if(Boolean(reservation) && Boolean(serverOfferings) && Boolean(serverServiceRequests)){
-            this.localHandler.setLocalReservation(reservation)
-            this.localHandler.setLocalOfferings(serverOfferings)
-            this.localHandler.setUserOfferings(serverServiceRequests)
-        }
+        const reservation = await this.getReservations(id)
+        this.localHandler.setLocalReservation(reservation)
+        this.localHandler.setLocalOfferings(await this.getRoomOfferings())
+        this.localHandler.setUserOfferings(await this.getRoomOfferings(reservation.room)) //get offerings by room
         return (true)
     }
 } 
 
 
-// GET /reservations/:id
-// GET /activities
-// GET /activities/:id
-// GET /offerings => returns all available offering for room service
-// GET /servicerequests
-// GET /servicerequests/:id
-// POST /servicerequests => adds a new service request

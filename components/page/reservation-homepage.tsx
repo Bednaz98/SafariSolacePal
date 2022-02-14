@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { View } from "react-native";
 import { appContext, AppContextInterface } from "../../classes-interfaces/app-context";
 import BasicText from "../../SafariSolaceStyleTools/basictext";
+import GetStyle from "../../SafariSolaceStyleTools/get-style";
 
 
 export default function ReservationHomePage(){
@@ -15,38 +16,38 @@ export default function ReservationHomePage(){
         //const context = useContext(appContext);
         //console.log("🚀 ~ file: reservation-homepage.tsx ~ line 15 ~ GetRoomName ~ context", context.reservationData.Reservation.room)
         return(
-        <View style={{flexDirection:"row"}}>
-            <BasicText text={"Room Name: "}/>
-            <BasicText text={context.reservationData.room ?? 'N/A'}/>
-        </View>)
+        <>
+            <BasicText style={GetStyle("BasicText")}text={"Room Name:"}/>
+            <BasicText style={GetStyle("BasicText")}text={context.reservationData.room ?? 'N/A'}/>
+        </>)
     }
     function GetCheckingInTime(){
         //const context = useContext(appContext);
         return(
-            <View style={{flexDirection:"row"}}>
-                <BasicText text={"Check In Time: "}/>
-                <BasicText text={(`${ (new Date(context.reservationData.checkIn ?? 'N/A')) .toDateString()} At: ${(new Date(context.reservationData.checkIn ?? 'N/A')).toLocaleTimeString() }`)}/>
-            </View>)
+            <>
+                <BasicText style={GetStyle("BasicText")}text={"Check In Time:"}/>
+                <BasicText style={GetStyle("BasicText")}text={(`${ (new Date(context.reservationData.checkIn ?? 'N/A')) .toDateString()} At: ${(new Date(context.reservationData.checkIn ?? 'N/A')).toLocaleTimeString() }`)}/>
+            </>)
     }
     function GetCheckingOutTime(){
         //const context = useContext(appContext);
         return(
-            <View style={{flexDirection:"row"}}>
-                <BasicText text={"Check Out Time: "}/>
-                <BasicText text={(`${(new Date(context.reservationData.checkOut ?? 'N/A')).toDateString()} At: ${(new Date(context.reservationData.checkOut ?? "N/A")).toLocaleTimeString() }`)}/>
-            </View>)
+            <>
+                <BasicText style={GetStyle("BasicText")}text={"Check Out Time:"}/>
+                <BasicText style={GetStyle("BasicText")}text={(`${(new Date(context.reservationData.checkOut ?? 'N/A')).toDateString()} At: ${(new Date(context.reservationData.checkOut ?? "N/A")).toLocaleTimeString() }`)}/>
+            </>)
     }
     function GetReservationID(){
         //const context = useContext(appContext);
         return(
-            <View style={{flexDirection:"row"}}>
-                <BasicText text={"Reservation ID:  "}/>
-                <BasicText text={(context.reservationData.id ?? 'N/A')}/>
-            </View>)
+            <>
+                <BasicText style={GetStyle("BasicText")}text={"Reservation ID:"}/>
+                <BasicText style={GetStyle("BasicText")}text={(context.reservationData.id ?? 'N/A')}/>
+            </>)
     }
     return(
-    <View>
-        <GetRoomName/>
+    <View style={GetStyle("ReservationInfoView")}>
+        <GetRoomName />
         <GetReservationID/>
         <GetCheckingInTime/>
         <GetCheckingOutTime/>

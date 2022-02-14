@@ -6,6 +6,7 @@ import BasicText, { TextType } from "../../SafariSolaceStyleTools/basictext";
 import PixelSpacer from "../../SafariSolaceStyleTools/pixel-spacer";
 import * as DocumentPicker from 'expo-document-picker';
 import Problem from "../../classes-interfaces/problem";
+import GetStyle from "../../SafariSolaceStyleTools/get-style";
 
 
 
@@ -74,24 +75,25 @@ export default function ProblemReport(){
         const [problemDescription, setProblemDescription] = useState('');
 
         return(
-            <View>
-                <PixelSpacer width={400}/>
+            <>
+                {/* <PixelSpacer width={400}/> */}
                 <BasicText text={"Submit a Problem"} textType = {TextType.Title}/>
-                <PixelSpacer height={5}/>
-                <BasicInputText  value ={problemDescription} onChangeText={setProblemDescription} placeholder={'Problem description'}/>
+                {/* <PixelSpacer height={5}/> */}
+                <BasicInputText style={GetStyle("ProblemTextInput")} value ={problemDescription} onChangeText={setProblemDescription} placeholder={'Problem description'}/>
                 <PixelSpacer height={5}/>
                 {!selectedFile ? <BasicButton onPress={selectFile} title={'Attach Image'}/> : <BasicButton onPress={()=>{setSelectedFile(null)}} title={'Un-Attach Image'}/>}
-                <BasicButton onPress={()=>{submitReport(problemDescription)}} title={'Submit form'} />
-            </View>)
+                {/* {selectedFile ?? <BasicText text={`Selected File: ${selectedFile.name}`}/>} */}
+                <BasicButton onPress={()=>{submitReport(problemDescription)}} title={'Submit form!'} />
+            </>)
     }
 
     function ThankYouDisplay(){
         return(
-        <View>
-            <BasicText text={'Thank you you for lettings us know'} textType = {TextType.Title}/>
-            <BasicText text={'Your report has been sent to a manager for review. We hope to fix any inconvenient as soon as possible.'} textType = {TextType.Title}/>
+        <>
+            <BasicText style={GetStyle("BasicText")} text={'Thank you for letting us know'} textType = {TextType.Title}/>
+            <BasicText style={GetStyle("BasicText")} text={'Your report has been sent to a manager for review. We hope to fix any inconvenience as soon as possible.'} textType = {TextType.Title}/>
             <BasicButton title={"Submit another problem?"} onPress={()=>{setViewState(false)}}/>
-        </View>)
+        </>)
     }
 
     function SwitchState( ){
@@ -100,9 +102,9 @@ export default function ProblemReport(){
     }
 
     return(
-        <View style={{flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
-            <SwitchState/>
-        </View>
+        // <View style={{flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
+            <View style={GetStyle('MainView')}><SwitchState/></View>
+        // </View>
     
     )
 }

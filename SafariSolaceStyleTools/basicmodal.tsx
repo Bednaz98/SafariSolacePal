@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Modal, View,StyleSheet, Button } from "react-native";
 import BasicButton from "./basicbutton";
-import GetColor, { borderRadius, Color, margin, paddingRadius } from "./styleconfig";
-import FlexSpacer from "./flex-spacer";
-import PixelSpacer from "./pixel-spacer";
+import BasicText from "./basictext";
+import GetColor, { Color } from "./colorstyle";
+import GetStyle from "./get-style";
 
 
 
@@ -15,11 +15,16 @@ export default function BasicModal(props){
   const [show, setShow] = useState(false);
   const styles = StyleSheet.create({
     modalView: {
-      flexDirection:"column",
-      flex:1,
-      alignContent:"center", justifyContent:"center",alignItems:"center",
-      shadowColor: "#000",
-      shadowOffset: {
+        flex: 1,
+        flexDirection:"column",
+        paddingHorizontal: 30,
+        margin: 20,
+        backgroundColor:GetColor(Color.Modal),
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
         width: 0,
         height: 0
       }
@@ -28,22 +33,24 @@ export default function BasicModal(props){
 
     return(
       <View>
-        <View style={{alignItems:"center", justifyContent:"center"}}>
-          {/* Main Modal  */}
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={show}
-            onRequestClose={() => {setShow(!show)}}>
-            <View style={ styles.modalView}>
-              <View style={{ margin:margin(),padding:paddingRadius(), borderRadius:borderRadius(), backgroundColor:GetColor(Color.ModalBackground), borderWidth:5}}>
-                  {child}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={show}
+          onRequestClose={() => {setShow(!show)}}>
+          {/* <View style={GetStyle("ReservationText")} > */}
+            <View style={styles.modalView}>
+
+              <View style={{width:"100%", height:'100%'}}>
+                {child}
+              </View>
+              <View style={GetStyle("ReservationText")}>
                 <BasicButton title={"close"} onPress={()=>{setShow(!show)}}/>
               </View>
-            </View>
-          </Modal>
-          {/* Main Modal  */}
-        </View>
+
+            {/* </View> */}
+          </View>
+        </Modal>
 
         <BasicButton title={openTitle} onPress={()=>{setShow(true)}}/>
 
