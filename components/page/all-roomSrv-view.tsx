@@ -1,14 +1,13 @@
 //shows all the orders for a room
 import React, { useState, useEffect } from "react";
-import { FlatList } from "react-native";
-import { View } from "react-native";
+import { FlatList, View } from "react-native";
 import httpHandler from "../../classes-interfaces/http-handler";
-import LocalHandler from "../../classes-interfaces/localhandler";
 import BasicButton from "../../SafariSolaceStyleTools/basicbutton";
 import BasicText from "../../SafariSolaceStyleTools/basictext";
 import v4 from "uuid/v4";
 import { Offering } from "../../classes-interfaces/room-service";
 import localhandler from "../../classes-interfaces/localhandler";
+import GetStyle from "../../SafariSolaceStyleTools/get-style";
 
 export function RoomServiceOfferings() {
   const httpHandle = new httpHandler(true);
@@ -19,7 +18,6 @@ export function RoomServiceOfferings() {
 
   useEffect(() => {
     setOrders(localhandle.getLocalOfferings());
-    //setOrders(testArr());
   }, []);
 
   function testArr(){
@@ -34,27 +32,34 @@ export function RoomServiceOfferings() {
     return arr1;
   }
 
-  function addOffer(props) {
-    httpHandle.postServiceRequest(props);
+  function addOffer(item) {
+    //httpHandle.postServiceRequest(props);
+    const currentRequests = localhandle.getUserOfferings()
+    currentRequests.push(item)
+    localhandle.setUserOfferings(currentRequests)
+
   }
 
+  const style = GetStyle("OfferingsText")
   return (
-    <View>
-      <BasicText text={"All Room Service Offerings"} />
-      <FlatList
-        data={orders}
-        keyExtractor={(item) => v4()}
-        renderItem={({ item }) => {
-          return (
-            <View>
-              <BasicText text={item.desc} />
-              <BasicText text={"$" + item.cost} />
-
-              <BasicButton onPress={addOffer(item)} title={"Add"} />
-            </View>
-          );
-        }}
-      />
-    </View>
+    <>
+      <BasicText style={GetStyle("TitleText")}  text={"All Room Service Offerings"} />
+      <View style={GetStyle("FlatlistView")}>
+          <FlatList
+            data={orders}
+            keyExtractor={(item) => v4()}
+            renderItem={({ item }) => {
+              return (
+                <>
+                  <BasicText style={style} text={item.desc} />
+                  <BasicText style={style} text={"$" + item.cost} />
+    
+                  <BasicButton onPress={()=>addOffer(item)} title={"Add"} />
+                </>
+              );
+            }}
+          />
+      </View>
+    </>
   );
 }

@@ -5,16 +5,17 @@ import { View } from "react-native";
 import BasicButton from "../../SafariSolaceStyleTools/basicbutton";
 import BasicText from "../../SafariSolaceStyleTools/basictext";
 import v4 from "uuid/v4";
-import { Offering, ServiceRequest } from "../../classes-interfaces/room-service";
+import { Offering} from "../../classes-interfaces/room-service";
 import localhandler from "../../classes-interfaces/localhandler";
 import httpHandler from "../../classes-interfaces/http-handler";
+import GetStyle from "../../SafariSolaceStyleTools/get-style";
 
 export function UserRoomServiceOrder() {
     const httpHandle = new httpHandler(true);
     const localHandle = new localhandler()
 
     const userOfferings = localHandle.getUserOfferings()
-    console.log("🚀 ~ file: user-roomSrv.tsx ~ line 16 ~ UserRoomServiceOrder ~ userOfferings", userOfferings)
+    //console.log("🚀 ~ file: user-roomSrv.tsx ~ line 16 ~ UserRoomServiceOrder ~ userOfferings", userOfferings)
 
     const [orders, setOrders] = useState(userOfferings);
 
@@ -30,27 +31,38 @@ export function UserRoomServiceOrder() {
     return arr1;
   }
 
-  function remove(props) {
-    localHandle.deleteUserOffering(props);
+  function remove(itemIndex) {
+    const requestedOfferings = orders
+    requestedOfferings.splice(itemIndex,1)
+    setOrders([...requestedOfferings])
+    localHandle.setUserOfferings(requestedOfferings);
 
   }
 
+  const style = GetStyle("OfferingsText")
   return (
-    <View>
-      <BasicText text={"Room Service Options"} />
-      <FlatList
-        data={orders}
-        keyExtractor={(item) => v4()}
-        renderItem={({ item, index }) => {
-          return (
-            <View>
-              <BasicText text={item.desc ?? "Example"} />
-              <BasicText text={"$" + item.cost} />
-              <BasicButton onPress={remove(index)} title={"Remove"} />
-            </View>
-          );
-        }}
-      />
-    </View>
+
+
+    <>
+        <BasicText style={GetStyle("TitleText")} text={"Your requested room service offerings"} />
+        <View style={GetStyle("FlatlistView")}>
+
+          <FlatList
+            data={orders}
+            keyExtractor={(item) => v4()}
+            renderItem={({ item, index }) => {
+              return (
+                <>
+                  <BasicText style={style} text={item.desc ?? "Example"} />
+                  <BasicText style={style} text={"$" + item.cost} />
+                  <BasicButton onPress={()=>remove(index)} title={"Remove"} />
+                </>
+              );
+            }}
+          />
+        </View>
+    </>
+
+
   );
 }

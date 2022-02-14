@@ -27,10 +27,8 @@ export default function App(){
   
     return(
         <ssContext.Provider value = {ssContextInit}>
-            <View style={{alignContent: "space-between"}}>
-                <SSPlayground/>
-                <View>{<RealApp></RealApp>}</View>
-            </View>
+                {/* <SSPlayground/> */}
+                <RealApp></RealApp>
         </ssContext.Provider>
     )
 }

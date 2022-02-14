@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, Dimensions } from 'react-native';
 import { appContext, AppContextInterface } from './classes-interfaces/app-context';
 import ProblemReport from './components/page/problem-report';
 import { Theme } from './SafariSolaceStyleTools/colorstyle';
@@ -23,14 +23,14 @@ export default function RealApp() {
   const [pageIndex, setPageIndex] = useState(0);
 
 
-//   // dummy values
-//   const dummyReservation:Reservation={
-//     id: '',
-//     checkIn: 0,
-//     checkOut: 0,
-//     owner: '',
-//     room: ''
-//   }
+  // dummy values
+  const dummyReservation:Reservation={
+    id: 'dude',
+    checkIn: 0,
+    checkOut: 0,
+    owner: 'me',
+    room: '404'
+  }
 
 // const dummyOffering1:Offering[] =[]
 //   const dummyOffering2:ServiceRequest={
@@ -47,7 +47,7 @@ export default function RealApp() {
 //     cost: 12
 // }]
 
-  const [reservation, setReservation] = useState<Reservation>();
+  const [reservation, setReservation] = useState<Reservation>(dummyReservation);
   const [serverOfferingList, setServerOfferingList] = useState<Offering[]>();
   const [userServerOffering, setUserServerOffering] = useState<Offering[]>();
   const [activityList, setActivityList] = useState<Activity[]>();
@@ -74,17 +74,21 @@ export default function RealApp() {
   function SwitchPage(){
     switch(pageIndex){
       case                              0:{return (<ReservationLogin setPageIndex = {setPageIndex}/>)}
-      case /*Home page*/                1:{return (<>< ShowNavBar/><ReservationHomePage/> </>)}
-      case /*All Events*/               2:{return (<>< ShowNavBar/><UserRoomServiceOrder/></> )}
-      case /*All Room Service*/         3:{return (<>< ShowNavBar/><RoomServiceOfferings/></> ) }
-      case /*All Events*/               4:{return (<>< ShowNavBar/><ActivityView/></> )}
-      case /*Problem Report*/           5:{return (<>< ShowNavBar/><ProblemReport/></>)} 
+      case /*Home page*/                1:{return (<><ShowNavBar/><ReservationHomePage/></>)}
+      case /*All Events*/               2:{return (<><ShowNavBar/><UserRoomServiceOrder/></>)}
+      case /*All Room Service*/         3:{return (<><ShowNavBar/><RoomServiceOfferings/></>)}
+      case /*All Events*/               4:{return (<><ShowNavBar/><ActivityView/></>)}
+      case /*Problem Report*/           5:{return (<><ShowNavBar/><ProblemReport/></>)} 
       default :                           {return <LoadingScreen/>}
     }
   }
 
+  const HeightScale = Dimensions.get('window').height
+  console.log("🚀 ~ file: RealApp.tsx ~ line 87 ~ RealApp ~ HeightScale", HeightScale)
+  const WidthScale = Dimensions.get('window').width
+  console.log("🚀 ~ file: RealApp.tsx ~ line 89 ~ RealApp ~ WidthScale", WidthScale)
   return (
-    <View style={GetStyle("MainView")}>
+    <View style={{width:'100%',height:'100%',justifyContent:"center", alignSelf:"center", backgroundColor:'black'}}>
       <appContext.Provider value = {initContext}>
         <themeContext.Provider value = { themeContextObject }>
           <SwitchPage/>
@@ -95,11 +99,11 @@ export default function RealApp() {
 }
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#999',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#999',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });

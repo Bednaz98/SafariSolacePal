@@ -4,6 +4,7 @@ import { ScrollView, View } from "react-native"
 import { Activity } from "../../classes-interfaces/activity"
 import httpHandler, { httphandlerInterface } from "../../classes-interfaces/http-handler"
 import BasicText from "../../SafariSolaceStyleTools/basictext"
+import GetStyle from "../../SafariSolaceStyleTools/get-style"
 import ActivityItem from "../children/activity-item"
 
 export default function ActivityView(){
@@ -31,11 +32,11 @@ export default function ActivityView(){
     
     const activityItems = activitiesState.map(a => <ActivityItem key={a.id} {...a}/>)
 
-    return(<View>
-        <BasicText text={'Available Activities'}/>
+    return(<>
+        <BasicText style={GetStyle("BasicText")} text={'Upcoming Events'}/>
 
         <ScrollView>
                 {activityItems}
         </ScrollView>
-    </View>)
+    </>)
 }

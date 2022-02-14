@@ -15,9 +15,9 @@ export default function BasicInputText(props){
     const onContentSizeChange = props?.onContentSizeChange ?? ( ({ nativeEvent: { contentSize: { width, height } } }) => {} );
 
     return(<>
-    // <View style={{backgroundColor:GetColor(Color.InputText), padding:3}}> 
-        <TextInput style={GetStyle("BasicInputText")} value={value} onChangeText={onChangeText} placeholder={placeholder} 
+    {/* <View style={{backgroundColor:GetColor(Color.InputText), padding:3}}>  */}
+        <TextInput multiline={true} style={props.style} value={value} onChangeText={onChangeText} placeholder={placeholder} 
         keyboardType='default' editable={editable} onChange={onChange} onContentSizeChange={onContentSizeChange}/>
-    // </View>)
+    {/* </View> */}
     </>)
 }
