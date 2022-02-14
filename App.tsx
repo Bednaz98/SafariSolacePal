@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, Image } from 'react-native';
 import { appContext, AppContextInterface } from './classes-interfaces/app-context';
 import ProblemReport from './components/page/problem-report';
 import { Theme } from './SafariSolaceStyleTools/colorstyle';
@@ -15,6 +15,7 @@ import { RoomServiceOfferings } from './components/page/all-roomSrv-view';
 import { UserRoomServiceOrder } from './components/page/user-roomSrv';
 import LoadingScreen from './components/loadingScreen';
 import { Activity } from './classes-interfaces/activity';
+import PixelSpacer from './SafariSolaceStyleTools/pixel-spacer';
 
 
 export default function App() {
@@ -86,6 +87,7 @@ export default function App() {
     <View style={styles.container}>
       <appContext.Provider value = {initContext}>
         <themeContext.Provider value = { themeContextObject }>
+        <Image style={{height:64*2, width:64*2, margin:10}} source={ require('./assets/Sale.png') } />
           <SwitchPage/>
         </themeContext.Provider>
       </appContext.Provider>
