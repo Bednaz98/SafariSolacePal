@@ -32,8 +32,6 @@ export default function ReservationLogin(props){
 
             await HTTP.syncApp(reservationID)
             context.setPage(1)
-
-            console.log("context reservation data in login-page is ", context.reservationData )
             //Set context State Here ...
             //switch page ...
         } catch (error) {
