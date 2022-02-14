@@ -13,7 +13,7 @@ import { appContext } from "../../classes-interfaces/app-context";
 
 export function RoomServiceOfferings() {
   
-  const httpHandle = new httpHandler(false);
+  const httpHandle = new httpHandler(true);
   const localhandle =new localhandler()
   const context = useContext(appContext);
 
@@ -23,6 +23,7 @@ export function RoomServiceOfferings() {
   console.log("SDFASIFASBFIASB",localhandle.getLocalOfferings());
 
   useEffect(() => {
+    console.log('offerings display')
     setOrders(localhandle.getLocalOfferings());
     
     //setOrders(testArr());
@@ -62,8 +63,7 @@ export function RoomServiceOfferings() {
         renderItem={({ item }) => {
           return (
             <View>
-              <BasicText text={item.desc} />
-              <BasicText text={"$" + item.cost} />
+              <View style={{flexDirection:"row"}}><BasicText text={item.desc} /><BasicText text={"$" + item.cost} /></View>
               <BasicButton onPress={()=>addOffer(item)} title={"Add"} />
             </View>
           );

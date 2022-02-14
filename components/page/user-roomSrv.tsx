@@ -16,7 +16,6 @@ export function UserRoomServiceOrder() {
     const context = useContext(appContext);
     
     const userOfferings = localHandle.getUserOfferings()
-    console.log("🚀 ~ file: user-roomSrv.tsx ~ line 16 ~ UserRoomServiceOrder ~ userOfferings", userOfferings)
 
     const [orders, setOrders] = useState([]);
 
@@ -51,8 +50,7 @@ export function UserRoomServiceOrder() {
         renderItem={({ item }) => {
           return (
             <View>
-              <BasicText text={item.desc ?? "Example"} />
-              <BasicText text={"$" + item.cost} />
+              <View style={{flexDirection:"row"}}><BasicText text={item.desc ?? "Example"} /><BasicText text={"$" + item.cost} /></View>
               <BasicButton onPress={() => remove(item)} title={"Remove"} />
             </View>
           );

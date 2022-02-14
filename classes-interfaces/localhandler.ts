@@ -24,13 +24,13 @@ export default class LocalHandler implements LocalHandlerInterface{
         return true
     }
 
-    getUserOfferings(): ServiceRequest[] {
-        const returnArray:ServiceRequest[] = this.context.userOfferings;
+    getUserOfferings(): Offering[] {
+        const returnArray:Offering[] = this.context.userOfferings;
         if(returnArray != null ) {return returnArray}
         else return []
     }
-    setUserOfferings(ServerOfferingData: ServiceRequest[]): boolean {
-        this.context.setUserOfferings(ServerOfferingData)
+    setUserOfferings(ServerOfferingData: ServiceRequest): boolean {
+        this.context.setUserOfferings(ServerOfferingData.requestedOffering)
         return true
     }
     deleteUserOffering(index: number): boolean {

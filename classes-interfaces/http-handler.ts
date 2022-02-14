@@ -25,7 +25,7 @@ export interface httphandlerInterface{
     /** get all room service requests available 
      * @param id Optional: Will return only services that the user has requested
     */
-    getRoomServiceRequests(id? : string): Promise<ServiceRequest[] >
+    getRoomServiceRequests(id? : string): Promise<ServiceRequest >
 
     /** Create or delete a service request for this user */
     postServiceRequest(request: ServiceRequest): Promise<boolean>
@@ -39,14 +39,15 @@ export default class httpHandler implements httphandlerInterface{
 
     /////////////////////////////////////////////
     private useURL:string = "http://20.124.74.192:3000";
+    private mockURL: string = "https://319a8c0f-ef79-4712-9143-a05d5c7a379c.mock.pstmn.io"
     private devMode:boolean;
     private localHandler: LocalHandlerInterface = new LocalHandler();
     
     /**this function returns the URL to work with, if devMod is set to false, 
     * it will return the production URL, if true, it will return 'http//localhost:[port]'*/
     private getURL(){
-        if(this.devMode){ return `https://319a8c0f-ef79-4712-9143-a05d5c7a379c.mock.pstmn.io`} //postman mock
-        else {return  this.useURL} 
+        if(this.devMode){ return this.mockURL} //postman mock
+        else {return   this.mockURL} 
     }
 
     //constructor
@@ -59,8 +60,7 @@ export default class httpHandler implements httphandlerInterface{
 
     /** get a reservation by ID */
     async getReservations(id: string){
-        const reserveUrl = `https://319a8c0f-ef79-4712-9143-a05d5c7a379c.mock.pstmn.io`
-        const response = await axios.get(`${reserveUrl}/reservations/:${id}`);
+        const response = await axios.get(`${this.getURL()}/reservations/:${id}`);
         const data: Reservation = response.data; //doing this will not actually enforce a type. The actual response type could be different
         return data;
     }
@@ -80,16 +80,17 @@ export default class httpHandler implements httphandlerInterface{
     }
 
     async getRoomOfferings(): Promise<Offering[]> {
-        const response = await axios.get(`http://20.124.74.192:3000/offerings`)
+        const response = await axios.get(`${this.getURL()}/offerings`)
         const data = response.data as Offering[]
         console.log("adfipuabsf", data)
         return data;
     }
 
-    async getRoomServiceRequests(id : string): Promise< ServiceRequest[]> {
+    async getRoomServiceRequests(id : string): Promise< ServiceRequest> {
         let response: any
-            response = await axios.get(`${this.getURL()}/servicerequests/:${id}`)
-            let data = response.data as ServiceRequest[]
+            response = (await axios.get(`${this.getURL()}/servicerequests/${id}`)).data
+            console.log('reseervation data', response)
+            let data = response  as ServiceRequest
             return data
     }
 
@@ -114,11 +115,9 @@ export default class httpHandler implements httphandlerInterface{
     async syncApp(id:string){
         //get-n-set
         const reservation= await this.getReservations(id);
-        //await oferings
-        //await room service requests []
-        //set states
+        const serverServiceRequests= await this.getRoomServiceRequests(reservation.room)
         const serverOfferings= await this.getRoomOfferings()
-        const serverServiceRequests= await this.getRoomServiceRequests(id)
+
         if(Boolean(reservation) && Boolean(serverOfferings) && Boolean(serverServiceRequests)){
             this.localHandler.setLocalReservation(reservation)
             this.localHandler.setLocalOfferings(serverOfferings)
