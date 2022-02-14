@@ -23,7 +23,7 @@ export default function GetStyle(keys: string){
     else{
         const themes = useContext(themeContext)
         switch (themes.theme){
-            case (Theme.other) : return coolTheme[keys]
+            //case (Theme.other) : return coolTheme[keys]
             default: return defaultThemeStyle[keys]
         }
     }
