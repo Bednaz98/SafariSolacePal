@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, Image } from "react-native";
 import BasicText, { TextType } from '../../SafariSolaceStyleTools/basictext'
 import BasicInputText from '../../SafariSolaceStyleTools/basicinputtext'
 import BasicButton from '../../SafariSolaceStyleTools/basicbutton'
@@ -69,7 +69,9 @@ export default function ReservationLogin(props){
     //     }
     // }
     return(
+        
         <View style={GetStyle('MainView')}>
+            <Image style={{height:64*2,width:64*2, margin:10, alignSelf:'center'}} source={ require('../../assets/Sale.png') }/>
             <BasicText style={GetStyle("TitleText")} text={"Welcome To Safari Solace Resorts"} />
             <BasicText style={GetStyle("TitleText")} text={"Please Enter your Reservation ID"} />
             <BasicInputText style={GetStyle("BasicInputText")} value = {reservationID} placeholder={"Your ID"} onChangeText= {setReservationID} />

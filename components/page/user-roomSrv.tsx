@@ -18,7 +18,7 @@ export function UserRoomServiceOrder() {
     
     const userOfferings = localHandle.getUserOfferings()
 
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState(userOfferings);
 
     useEffect(() => {
       setOrders(userOfferings)
@@ -37,8 +37,8 @@ export function UserRoomServiceOrder() {
   }
 
   function remove(itemIndex) {
-    const requestedOfferings = orders
-    requestedOfferings.splice(itemIndex,1)
+    let requestedOfferings = orders
+    requestedOfferings.length === 1 ? requestedOfferings = [] : requestedOfferings.splice(itemIndex,1)
     setOrders([...requestedOfferings])
     localHandle.setUserOfferings(requestedOfferings);
 

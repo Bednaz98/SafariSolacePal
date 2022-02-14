@@ -92,7 +92,6 @@ export default function App() {
     <View style={{width:'100%',height:'100%',justifyContent:"center", alignSelf:"center", backgroundColor:'black'}}>
       <appContext.Provider value = {initContext}>
         <themeContext.Provider value = { themeContextObject }>
-        <Image style={{height:64*2,width:64*2,margin:10}} source={ require('./assets/Sale.png') }/>
           <SwitchPage/>
         </themeContext.Provider>
       </appContext.Provider>

@@ -14,9 +14,9 @@ export default interface LocalHandlerInterface{
         /**used to set offering from the server locally*/
         setLocalOfferings(Offering : Offering[]):boolean
         /**used to get the locally saved offering the the user requested*/
-        getUserOfferings():Offering[]
+        getUserOfferings(ServiceRequest: ServiceRequest):Offering[]
         /**used to set the user offering locally*/
-        setUserOfferings(ServerOfferingData: ServiceRequest):boolean
+        setUserOfferings(ServerOfferingData: Offering[]):boolean
         deleteUserOffering(index: number): boolean
 
 }
