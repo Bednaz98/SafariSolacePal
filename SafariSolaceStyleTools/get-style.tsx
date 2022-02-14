@@ -15,7 +15,7 @@ export enum Theme{
 export default function GetStyle(keys: string){
     //console.log("GET STYLES CALLED")
 
-    const developermode: boolean = false
+    const developermode: boolean = true
 
     if (developermode){
         return ssStyleSheet(keys)

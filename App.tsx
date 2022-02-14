@@ -27,7 +27,7 @@ export default function App(){
   
     return(
         <ssContext.Provider value = {ssContextInit}>
-                {/* <SSPlayground/> */}
+                <SSPlayground/>
                 <RealApp></RealApp>
         </ssContext.Provider>
     )
