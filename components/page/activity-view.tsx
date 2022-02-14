@@ -33,7 +33,7 @@ export default function ActivityView(){
     const activityItems = activitiesState.map(a => <ActivityItem key={a.id} {...a}/>)
 
     return(<>
-        <BasicText style={GetStyle("BasicText")} text={'Upcoming Events'}/>
+        <BasicText style={GetStyle("TitleText")} text={'Upcoming Events'}/>
 
         <ScrollView>
                 {activityItems}

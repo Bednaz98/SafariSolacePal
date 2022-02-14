@@ -72,7 +72,7 @@ export function RoomServiceOfferings() {
                   <BasicText style={style} text={item.desc} />
                   <BasicText style={style} text={"$" + item.cost} />
     
-                  <BasicButton onPress={()=>addOffer(item)} title={"Add"} />
+                  <View style={{flex:1, width: '60%',alignSelf:'center'}}><BasicButton onPress={()=>addOffer(item)} title={"Add"} /></View>
                 </>
               );
             }}

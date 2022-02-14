@@ -17,7 +17,7 @@ export default function ReservationHomePage(){
         //console.log("🚀 ~ file: reservation-homepage.tsx ~ line 15 ~ GetRoomName ~ context", context.reservationData.Reservation.room)
         return(
         <>
-            <BasicText style={GetStyle("BasicText")}text={"Room Name: "}/>
+            <BasicText style={GetStyle("BasicText")}text={"Room Name:"}/>
             <BasicText style={GetStyle("BasicText")}text={context.reservationData.room ?? 'N/A'}/>
         </>)
     }
@@ -25,7 +25,7 @@ export default function ReservationHomePage(){
         //const context = useContext(appContext);
         return(
             <>
-                <BasicText style={GetStyle("BasicText")}text={"Check In Time: "}/>
+                <BasicText style={GetStyle("BasicText")}text={"Check In Time:"}/>
                 <BasicText style={GetStyle("BasicText")}text={(`${ (new Date(context.reservationData.checkIn ?? 'N/A')) .toDateString()} At: ${(new Date(context.reservationData.checkIn ?? 'N/A')).toLocaleTimeString() }`)}/>
             </>)
     }
@@ -33,7 +33,7 @@ export default function ReservationHomePage(){
         //const context = useContext(appContext);
         return(
             <>
-                <BasicText style={GetStyle("BasicText")}text={"Check Out Time: "}/>
+                <BasicText style={GetStyle("BasicText")}text={"Check Out Time:"}/>
                 <BasicText style={GetStyle("BasicText")}text={(`${(new Date(context.reservationData.checkOut ?? 'N/A')).toDateString()} At: ${(new Date(context.reservationData.checkOut ?? "N/A")).toLocaleTimeString() }`)}/>
             </>)
     }
@@ -41,7 +41,7 @@ export default function ReservationHomePage(){
         //const context = useContext(appContext);
         return(
             <>
-                <BasicText style={GetStyle("BasicText")}text={"Reservation ID:  "}/>
+                <BasicText style={GetStyle("BasicText")}text={"Reservation ID:"}/>
                 <BasicText style={GetStyle("BasicText")}text={(context.reservationData.id ?? 'N/A')}/>
             </>)
     }

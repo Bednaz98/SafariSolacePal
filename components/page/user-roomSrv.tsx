@@ -58,9 +58,10 @@ export function UserRoomServiceOrder() {
             renderItem={({ item, index }) => {
               return (
                 <>
-                  <BasicText style={style} text={item.desc ?? "Example"} />
-                  <BasicText style={style} text={"$" + item.cost} />
-                  <BasicButton onPress={()=>remove(index)} title={"Remove"} />
+                    <View style={{width:"100%"}}></View>
+                    <BasicText style={style} text={item.desc ?? "Example"} />
+                    <BasicText style={style} text={"$" + item.cost} />
+                    <View style={{flex:1, width: '60%',alignSelf:'center'}}><BasicButton onPress={()=>remove(index)} title={"Remove"} /></View>
                 </>
               );
             }}
