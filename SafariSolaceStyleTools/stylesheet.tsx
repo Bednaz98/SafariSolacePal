@@ -78,14 +78,15 @@ export const defaultThemeStyle = StyleSheet.create({
         "textShadowRadius": 13,
         "borderColor": "white",
         "opacity": .8,
-        "width": "100%",
+        // "width": "100%",
+        // "minWidth": "100%",
         "height": "15%",
         "paddingTop": 20,
         "paddingHorizontal": 4,
         "justifyContent": "center",
-        "alignContent": "space-around",
-        "alignItems": "center",
-        "alignSelf": "center",
+        "alignContent": "stretch",
+        "alignItems": "stretch",
+        "alignSelf": "stretch",
         "borderWidth": 10,
         "borderRadius": 50
       },
@@ -201,7 +202,7 @@ export const defaultThemeStyle = StyleSheet.create({
         "paddingHorizontal": 0,
         "justifyContent": "space-around",
         "alignContent": "center",
-        "alignItems": "center",
+        "alignItems": "stretch",
         "alignSelf": "center",
         "borderWidth": 10,
         "borderRadius": 50
@@ -218,7 +219,7 @@ export const defaultThemeStyle = StyleSheet.create({
         "paddingHorizontal": 10,
         "justifyContent": "center",
         "alignContent": "center",
-        "alignItems": "center",
+        "alignItems": "stretch", //needed to make text views max width
         "alignSelf": "center",
         "borderWidth": 10,
         "borderRadius": 50
@@ -226,67 +227,7 @@ export const defaultThemeStyle = StyleSheet.create({
       
 })
 
-export const coolTheme = StyleSheet.create({
-    "MainView": {
-        "backgroundColor": "grey",
-        "borderColor": "black",
-        "opacity": 1,
-        "width": 647,
-        "height": 460,
-        "paddingVertical": 0,
-        "paddingHorizontal": 0,
-        "justifyContent": "center",
-        "alignContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "borderWidth": 0,
-        "borderRadius": 112
-      },
-      "NavView": {
-        "backgroundColor": "grey",
-        "borderColor": "black",
-        "opacity": 1,
-        "width": "100%",
-        "height": "100%",
-        "paddingVertical": 0,
-        "paddingHorizontal": 0,
-        "justifyContent": "center",
-        "alignContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "borderWidth": 0,
-        "borderRadius": 0
-      },
-      "InfoView": {},
-      "Text": {
-        "color": "#66B032",
-        "backgroundColor": "grey",
-        "fontSize": 30,
-        "fontFamily": "serif",
-        "textAlign": "center",
-        "letterSpacing": 10,
-        "lineHeight": 50,
-        "textShadowColor": "#663300",
-        "textShadowRadius": 6,
-        "borderColor": "black",
-        "opacity": 1,
-        "width": 527,
-        "height": 80,
-        "paddingVertical": 0,
-        "paddingHorizontal": 0,
-        "justifyContent": "center",
-        "alignContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center"
-      },
-      "TitleText": {},
-      "Modal": {},
-      "MenuButton": {},
-      "SyncButton": {},
-      "InfoText": {},
-      "titleText": {}
-      
-})
+
 
 
 // "MainView": {
@@ -347,4 +288,3 @@ export const coolTheme = StyleSheet.create({
 //   "SyncButton": {},
 //   "InfoText": {},
 //   "titleText": {}
-

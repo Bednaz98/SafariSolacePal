@@ -1,5 +1,4 @@
 import {useEffect, useState } from "react";
-import { View } from "react-native";
 import { ssContext, ssContextInterface } from "./developer-styling-tools/ss-context";
 import SSPlayground from "./developer-styling-tools/ss-playground";
 import { ssKeys, ssKeysInterface } from "./developer-styling-tools/ss-style-keys";
@@ -27,7 +26,7 @@ export default function App(){
   
     return(
         <ssContext.Provider value = {ssContextInit}>
-                <SSPlayground/>
+                {/* <SSPlayground/> */}
                 <RealApp></RealApp>
         </ssContext.Provider>
     )
